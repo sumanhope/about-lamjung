@@ -1,11 +1,8 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:aboutlamjung/navpages/places.dart';
 import 'package:aboutlamjung/navpages/profile.dart';
 import 'package:aboutlamjung/navpages/weather.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:line_icons/line_icon.dart';
-import 'package:line_icons/line_icons.dart';
+
 import 'navpages/homepage.dart';
 
 class LandingPage extends StatefulWidget {
@@ -43,8 +40,8 @@ class _LandingPageState extends State<LandingPage> {
                   ),
                   child: BottomNavigationBar(
                     type: BottomNavigationBarType.fixed, // Fixed
-                    backgroundColor: Color(0xFF1B1B1B),
-                    selectedItemColor: Color(0xFFF1F3F4),
+                    backgroundColor: const Color(0xFF1B1B1B),
+                    selectedItemColor: const Color(0xFFF1F3F4),
                     unselectedItemColor: Colors.grey,
 
                     // fixedColor: Colors.amber,

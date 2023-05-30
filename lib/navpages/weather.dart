@@ -147,7 +147,7 @@ class _WeatherPageState extends State<WeatherPage> {
                     width: 200,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(100, 1, 111, 185),
+                      color: const Color.fromARGB(100, 1, 111, 185),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(

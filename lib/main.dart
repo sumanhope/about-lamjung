@@ -1,4 +1,5 @@
-import 'package:aboutlamjung/landing.dart';
+// import 'package:aboutlamjung/landing.dart';
+import 'package:aboutlamjung/onboard/onboarding.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.purple,
       ),
-      home: const LandingPage(),
+      home: const OnboardingScreen(),
     );
   }
 }
