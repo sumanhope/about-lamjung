@@ -34,6 +34,33 @@ class _WeatherPageState extends State<WeatherPage> {
     return formattedTime;
   }
 
+  String getDirection(int? angle) {
+    if (angle == null) {
+      return "";
+    }
+    if (angle >= 0 && angle < 22.5) {
+      return 'N';
+    } else if (angle >= 22.5 && angle < 67.5) {
+      return 'NE';
+    } else if (angle >= 67.5 && angle < 112.5) {
+      return 'E';
+    } else if (angle >= 112.5 && angle < 157.5) {
+      return 'SE';
+    } else if (angle >= 157.5 && angle < 202.5) {
+      return 'S';
+    } else if (angle >= 202.5 && angle < 247.5) {
+      return 'SW';
+    } else if (angle >= 247.5 && angle < 292.5) {
+      return 'W';
+    } else if (angle >= 292.5 && angle < 337.5) {
+      return 'NW';
+    } else if (angle >= 337.5 && angle < 360) {
+      return 'N';
+    } else {
+      return 'Invalid angle';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -164,7 +191,7 @@ class _WeatherPageState extends State<WeatherPage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "${data?.wind}km/h (${data?.winddeg})",
+                            "${data?.wind}km/h (${getDirection(data?.winddeg)})",
                             style: const TextStyle(
                               color: Colors.black,
                               fontSize: 18,

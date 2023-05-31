@@ -1,4 +1,5 @@
 import 'package:aboutlamjung/landing.dart';
+import 'package:aboutlamjung/user/signup.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -12,10 +13,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   int currentpage = 0;
   PageController pageController = PageController();
   List<String> imagepaths = [
-    'assets/images/mountain.jpg',
+    'assets/images/skyhill.jpg',
     'assets/images/sky.jpg',
     'assets/images/hills.jpg',
-    'assets/images/gaintwheel.jpg',
+    'assets/images/mountain.jpg',
   ];
   @override
   Widget build(BuildContext context) {
@@ -101,7 +102,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: SizedBox(
               height: 50,
               child: OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  print(size.height);
+                },
                 style: OutlinedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -135,7 +138,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             alignment: Alignment.bottomCenter,
             child: Container(
               width: size.width,
-              height: 150,
+              height: size.height * 0.22,
               decoration: const BoxDecoration(
                 color: Color(0xFFF1F3F4),
                 borderRadius: BorderRadius.only(
@@ -154,7 +157,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       width: 270,
                       height: 60,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const SignUpPage();
+                              },
+                            ),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF1B1B1B),
                           shape: RoundedRectangleBorder(
@@ -189,7 +201,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                       SizedBox(
                         height: 35,
-                        width: 60,
                         child: TextButton(
                             onPressed: () {},
                             child: const Text(
