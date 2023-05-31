@@ -15,8 +15,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(226, 231, 231, 1),
       appBar: AppBar(
-        // centerTitle: true,
-        // leading: Icon(Icons.place_sharp),
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         title: const Row(
@@ -119,18 +117,18 @@ class _HomePageState extends State<HomePage> {
                   ),
                   PopularPlace(
                     size: size,
-                    imagelink: "assets/images/sky.jpg",
-                    placename: "Something sky",
+                    imagelink: "assets/images/hillstwo.jpg",
+                    placename: "Something mountain",
                     placeaddress: "Bhotewodar, Lamjung",
-                    rating: "4.4",
+                    rating: "4.0",
                     press: () {},
                   ),
                   PopularPlace(
                     size: size,
-                    imagelink: "assets/images/mountain.jpg",
-                    placename: "Something mountain",
+                    imagelink: "assets/images/sky.jpg",
+                    placename: "Something sky",
                     placeaddress: "Bhotewodar, Lamjung",
-                    rating: "4.0",
+                    rating: "4.4",
                     press: () {},
                   ),
                 ],
@@ -192,8 +190,8 @@ class _HomePageState extends State<HomePage> {
             ),
             RecomendationCard(
               size: size,
-              imagelink: "assets/images/gaintwheel.jpg",
-              placename: "Something Wheel",
+              imagelink: "assets/images/hillsone.jpg",
+              placename: "Something Hill One",
               placeaddress: "Lamjung",
               rating: "3.5",
               totalreviews: "70",

@@ -25,7 +25,7 @@ class Weather {
 
   Weather.fromJson(Map<String, dynamic> json) {
     cityName = json["name"];
-    desc = json["weather"][0]["main"];
+    desc = json["weather"][0]["description"];
     temp = json["main"]["temp"];
     feelslike = json["main"]["feels_like"];
     pressure = json["main"]["pressure"];

@@ -34,6 +34,14 @@ class _WeatherPageState extends State<WeatherPage> {
     return formattedTime;
   }
 
+  String firstLetter(String? input) {
+    if (input == null) {
+      return "null";
+    }
+
+    return input[0].toUpperCase() + input.substring(1);
+  }
+
   String getDirection(int? angle) {
     if (angle == null) {
       return "";
@@ -65,18 +73,32 @@ class _WeatherPageState extends State<WeatherPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color(0xFFF1F3F4),
+      backgroundColor: const Color.fromRGBO(226, 231, 231, 1),
       appBar: AppBar(
-        title: const Text(
-          "Lamjung",
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: 'Rubik',
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1,
-          ),
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        title: const Row(
+          children: [
+            Icon(
+              Icons.cloud_rounded,
+              color: Color(0xFF1B1B1B),
+              size: 30,
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              "Weather",
+              style: TextStyle(
+                color: Color(0xFF1B1B1B),
+                fontFamily: 'Rubik',
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                letterSpacing: 1,
+              ),
+            ),
+          ],
         ),
-        centerTitle: true,
         elevation: 0,
         actions: [
           IconButton(
@@ -84,6 +106,7 @@ class _WeatherPageState extends State<WeatherPage> {
             icon: const FaIcon(
               FontAwesomeIcons.rotate,
               size: 20,
+              color: Color(0xFF1B1B1B),
             ),
           )
         ],
@@ -97,7 +120,7 @@ class _WeatherPageState extends State<WeatherPage> {
               return const Padding(
                 padding: EdgeInsets.only(top: 200, left: 190),
                 child: CircularProgressIndicator(
-                  color: Colors.purple,
+                  color: Colors.black,
                 ),
               );
             } else if (snapshot.hasError) {
@@ -157,7 +180,7 @@ class _WeatherPageState extends State<WeatherPage> {
                     ),
                   ),
                   Text(
-                    "${data!.desc}",
+                    firstLetter(data!.desc),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: Colors.black,
@@ -170,12 +193,19 @@ class _WeatherPageState extends State<WeatherPage> {
                     height: 10,
                   ),
                   Container(
-                    // height: 40,
-                    width: 200,
+                    height: size.height * 0.06,
+                    width: size.width * 0.5,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(100, 1, 111, 185),
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color.fromARGB(90, 27, 27, 27),
+                          blurRadius: 4,
+                          offset: Offset(0, 8), // Shadow position
+                        ),
+                      ],
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -191,7 +221,7 @@ class _WeatherPageState extends State<WeatherPage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "${data?.wind}km/h (${getDirection(data?.winddeg)})",
+                            "${data?.wind}m/s (${getDirection(data?.winddeg)})",
                             style: const TextStyle(
                               color: Colors.black,
                               fontSize: 18,
@@ -203,15 +233,25 @@ class _WeatherPageState extends State<WeatherPage> {
                       ],
                     ),
                   ),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   Padding(
                     padding:
                         const EdgeInsets.only(top: 10.0, right: 10, left: 10),
                     child: Container(
-                      // height: 220,
-                      width: size.width - 100,
+                      width: size.width * 0.9,
+                      height: size.height * 0.34,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(100, 1, 111, 185),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color.fromARGB(90, 27, 27, 27),
+                            blurRadius: 4,
+                            offset: Offset(0, 8), // Shadow position
+                          ),
+                        ],
                       ),
                       child: Column(
                         children: [
@@ -240,7 +280,7 @@ class _WeatherPageState extends State<WeatherPage> {
                           ExtraWeatherRow(
                             which: 'Pressure',
                             amount: "${data?.pressure}",
-                            denote: 'mbar',
+                            denote: 'hPa',
                           ),
                           ExtraWeatherRow(
                             which: 'sunrise',
@@ -267,7 +307,7 @@ class _WeatherPageState extends State<WeatherPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "Data provided in part by ",
+                        "Data provided by ",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 16,
@@ -279,7 +319,7 @@ class _WeatherPageState extends State<WeatherPage> {
                       Text(
                         " OpenWeather",
                         style: TextStyle(
-                          color: Colors.black,
+                          color: Color(0xFF016FB9),
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Rubik',
@@ -288,7 +328,7 @@ class _WeatherPageState extends State<WeatherPage> {
                     ],
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 80,
                   ),
                 ],
               );
@@ -325,7 +365,7 @@ class ExtraWeatherRow extends StatelessWidget {
             which,
             style: const TextStyle(
               color: Colors.black,
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
               fontFamily: 'Rubik',
             ),
@@ -337,7 +377,7 @@ class ExtraWeatherRow extends StatelessWidget {
             "$amount$denote",
             style: const TextStyle(
               color: Colors.black,
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
               fontFamily: 'Rubik',
             ),
