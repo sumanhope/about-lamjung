@@ -1,4 +1,5 @@
 import 'package:aboutlamjung/landing.dart';
+import 'package:aboutlamjung/user/login.dart';
 import 'package:aboutlamjung/user/signup.dart';
 import 'package:flutter/material.dart';
 
@@ -103,7 +104,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               height: 50,
               child: OutlinedButton(
                 onPressed: () {
-                  print(size.height);
+                  setState(() {
+                    pageController.jumpTo(0);
+                  });
                 },
                 style: OutlinedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -152,7 +155,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     height: 15,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
+                    padding: const EdgeInsets.only(top: 15.0),
                     child: SizedBox(
                       width: 270,
                       height: 60,
@@ -186,34 +189,46 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                     ),
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Already have a account?",
-                        style: TextStyle(
-                          color: Color(0xFF1B1B1B),
-                          fontFamily: 'Rubik',
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, left: 20),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Already have a account?",
+                          style: TextStyle(
+                            color: Color(0xFF1B1B1B),
+                            fontFamily: 'Rubik',
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 35,
-                        child: TextButton(
-                            onPressed: () {},
-                            child: const Text(
-                              "Login",
-                              style: TextStyle(
-                                color: Color(0xFF016FB9),
-                                fontFamily: 'Rubik',
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1,
-                              ),
-                            )),
-                      )
-                    ],
+                        SizedBox(
+                          height: 35,
+                          child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return const LoginPage();
+                                    },
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                "Login",
+                                style: TextStyle(
+                                  color: Color(0xFF016FB9),
+                                  fontFamily: 'Rubik',
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1,
+                                ),
+                              )),
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),

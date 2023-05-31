@@ -43,6 +43,8 @@ dependencies:
   http: ^0.13.0
   shared_preferences: ^2.1.1
   image_picker: ^0.8.7+5
+  keyboard_dismisser: ^3.0.0
+  smooth_page_indicator: ^1.1.0
 
 dev_dependencies:
   flutter_test:

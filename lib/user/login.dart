@@ -1,19 +1,16 @@
-import 'package:aboutlamjung/user/login.dart';
+import 'package:aboutlamjung/user/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-/// white: const Color(0xE9F1F3F4)
-/// black: const Color(0xFF1B1B1B)
-class _SignUpPageState extends State<SignUpPage> {
+class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
-  final usernameController = TextEditingController();
   String password = "";
   bool isPasswordVisible = false;
 
@@ -21,23 +18,18 @@ class _SignUpPageState extends State<SignUpPage> {
   void initState() {
     super.initState();
     emailController.addListener(() => setState(() {}));
-    usernameController.addListener(() => setState(() {}));
   }
 
-  Widget buildEmail(
-      TextEditingController which, IconData icon, TextInputType keyboard) {
+  Widget buildEmail() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: SizedBox(
         child: TextField(
-          controller: which,
+          controller: emailController,
           cursorColor: const Color(0xFF1B1B1B),
           decoration: InputDecoration(
             filled: true,
-
             fillColor: const Color(0xFFD2E1DC),
-            // enabledBorder: InputBorder.none,
-            // focusedBorder: InputBorder.none,
             border: const OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.all(
@@ -45,22 +37,22 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               gapPadding: 4,
             ),
-            prefixIcon: Icon(
-              icon,
+            prefixIcon: const Icon(
+              Icons.email,
               size: 25,
-              color: const Color(0xFF1B1B1B),
+              color: Color(0xFF1B1B1B),
             ),
-            suffixIcon: which.text.isEmpty
+            suffixIcon: emailController.text.isEmpty
                 ? Container(width: 0)
                 : IconButton(
                     icon: const Icon(
                       Icons.close,
                       color: Color(0xFF1B1B1B),
                     ),
-                    onPressed: () => which.clear(),
+                    onPressed: () => emailController.clear(),
                   ),
           ),
-          keyboardType: keyboard,
+          keyboardType: TextInputType.emailAddress,
           textInputAction: TextInputAction.next,
           style: const TextStyle(
             color: Color(0xFF1B1B1B),
@@ -127,7 +119,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    //final size = MediaQuery.of(context).size;
     return KeyboardDismisser(
       gestures: const [GestureType.onTap, GestureType.onPanUpdateDownDirection],
       child: Scaffold(
@@ -167,20 +158,50 @@ class _SignUpPageState extends State<SignUpPage> {
                   horizontal: 20.0,
                 ),
                 child: Text(
-                  "Sign Up",
+                  "Hello Again!",
                   style: TextStyle(
                     color: Color(0xFF1B1B1B),
                     fontFamily: 'Rubik',
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1,
-                    fontSize: 50,
+                    fontSize: 40,
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.0,
+                ),
+                child: Text(
+                  "Welcome",
+                  style: TextStyle(
+                    color: Color(0xFF1B1B1B),
+                    fontFamily: 'Rubik',
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1,
+                    fontSize: 30,
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.0,
+                ),
+                child: Text(
+                  "back",
+                  style: TextStyle(
+                    color: Color(0xFF1B1B1B),
+                    fontFamily: 'Rubik',
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1,
+                    fontSize: 30,
                   ),
                 ),
               ),
               const Padding(
                 padding: EdgeInsets.only(
                   left: 20.0,
-                  top: 50,
+                  top: 30,
                 ),
                 child: Text(
                   "Email",
@@ -193,32 +214,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
               ),
-              buildEmail(
-                emailController,
-                Icons.email,
-                TextInputType.emailAddress,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(
-                  left: 20.0,
-                  top: 10,
-                ),
-                child: Text(
-                  "Username",
-                  style: TextStyle(
-                    color: Color(0xFF1B1B1B),
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-              buildEmail(
-                usernameController,
-                Icons.person,
-                TextInputType.text,
-              ),
+              buildEmail(),
               const Padding(
                 padding: EdgeInsets.only(
                   left: 20.0,
@@ -253,7 +249,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                     child: const Text(
-                      "Sign Up",
+                      "Login",
                       style: TextStyle(
                         color: Color(0xFFF1F3F4),
                         fontFamily: 'Rubik',
@@ -272,7 +268,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "Already have a account?",
+                      "Don't have a account?",
                       style: TextStyle(
                         color: Color(0xFF1B1B1B),
                         fontFamily: 'Rubik',
@@ -283,25 +279,26 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 35,
                       child: TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return const LoginPage();
-                                },
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            "Login",
-                            style: TextStyle(
-                              color: Color(0xFF016FB9),
-                              fontFamily: 'Rubik',
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1,
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const SignUpPage();
+                              },
                             ),
-                          )),
+                          );
+                        },
+                        child: const Text(
+                          "Sign Up",
+                          style: TextStyle(
+                            color: Color(0xFF016FB9),
+                            fontFamily: 'Rubik',
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ),
                     )
                   ],
                 ),
