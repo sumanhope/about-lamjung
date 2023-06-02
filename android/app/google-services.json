@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "896013746431",
+    "project_id": "aboutlamjung",
+    "storage_bucket": "aboutlamjung.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896013746431:android:37e14e9e7886d2695e0cca",
+        "android_client_info": {
+          "package_name": "com.example.aboutlamjung"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896013746431-0ocfasm9vbchd2fiq3snslqhtju8f14p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbaZOcr0hXA_4NnRLKVlBc5wzKBaQCb_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896013746431-0ocfasm9vbchd2fiq3snslqhtju8f14p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

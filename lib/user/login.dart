@@ -1,4 +1,6 @@
+import 'package:aboutlamjung/landing.dart';
 import 'package:aboutlamjung/user/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -18,6 +20,66 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     emailController.addListener(() => setState(() {}));
+  }
+
+  Future errorDialog(String error) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8))),
+          backgroundColor: Colors.white,
+          elevation: 5,
+          title: Text(
+            error,
+            style: const TextStyle(
+              letterSpacing: 2.5,
+              color: Colors.black,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Rubik',
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future signIn(String useremail) async {
+    try {
+      showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (context) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Colors.black,
+              ),
+            );
+          });
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: useremail, password: password)
+          .then((value) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LandingPage(),
+          ),
+        );
+      });
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      if (e.code == 'user-not-found') {
+        errorDialog("Email or password is incorrect");
+      } else if (e.code == 'wrong-password') {
+        errorDialog("Email or passoword is incorrect.");
+      } else if (e.code == 'invalid-email') {
+        errorDialog("The email address is badly formatted");
+      } else {
+        errorDialog(e.toString());
+      }
+    }
   }
 
   Widget buildEmail() {
@@ -241,7 +303,9 @@ class _LoginPageState extends State<LoginPage> {
                   width: 270,
                   height: 60,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      signIn(emailController.text.trim());
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF1B1B1B),
                       shape: RoundedRectangleBorder(

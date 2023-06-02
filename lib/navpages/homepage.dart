@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../utils/popularplace.dart';
+import '../utils/recommendationcard.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,7 +12,33 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final User? user = FirebaseAuth.instance.currentUser;
   final pagecontroller = ScrollController();
+
+  Future errorDialog(String error) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8))),
+          backgroundColor: Colors.white,
+          elevation: 5,
+          title: Text(
+            error,
+            style: const TextStyle(
+              letterSpacing: 2.5,
+              color: Colors.black,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Rubik',
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -140,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                 const Padding(
                   padding: EdgeInsets.only(left: 10.0),
                   child: Text(
-                    "Recomendation for you",
+                    "Recommendation for you",
                     style: TextStyle(
                       color: Color(0xFF1B1B1B),
                       fontFamily: 'Rubik',
@@ -167,7 +197,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            RecomendationCard(
+            RecommendationCard(
               size: size,
               imagelink: "assets/images/skyhill.jpg",
               placename: "Something Hills",
@@ -179,7 +209,7 @@ class _HomePageState extends State<HomePage> {
             // const SizedBox(
             //   height: 15,
             // ),
-            RecomendationCard(
+            RecommendationCard(
               size: size,
               imagelink: "assets/images/sky.jpg",
               placename: "Something Sky",
@@ -188,7 +218,7 @@ class _HomePageState extends State<HomePage> {
               totalreviews: "50",
               press: () {},
             ),
-            RecomendationCard(
+            RecommendationCard(
               size: size,
               imagelink: "assets/images/hillsone.jpg",
               placename: "Something Hill One",
@@ -198,276 +228,103 @@ class _HomePageState extends State<HomePage> {
               press: () {},
             ),
             const SizedBox(
-              height: 80,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class RecomendationCard extends StatelessWidget {
-  const RecomendationCard({
-    super.key,
-    required this.size,
-    required this.imagelink,
-    required this.placename,
-    required this.placeaddress,
-    required this.rating,
-    required this.totalreviews,
-    required this.press,
-  });
-
-  final Size size;
-  final String imagelink;
-  final String placename;
-  final String placeaddress;
-  final String rating;
-  final String totalreviews;
-  final VoidCallback press;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 10.0,
-        right: 10,
-        bottom: 15,
-      ),
-      child: Container(
-        height: size.height * 0.15,
-        width: size.width,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: const [
-            BoxShadow(
-              color: Color.fromARGB(90, 27, 27, 27),
-              blurRadius: 4,
-              offset: Offset(1, 8), // Shadow position
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                width: size.width * 0.25,
-                height: size.height * 0.14,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(imagelink),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: size.width * 0.48,
-                  child: Text(
-                    placename,
-                    style: const TextStyle(
-                      color: Color(0xFF1B1B1B),
-                      fontFamily: 'Rubik',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      letterSpacing: 1,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0, bottom: 1),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.place_rounded,
-                        size: 18,
-                        color: Color(0xFF1B1B1B),
-                      ),
-                      SizedBox(
-                        width: size.width * 0.48,
-                        child: Text(
-                          " $placeaddress",
-                          style: const TextStyle(
-                            color: Color(0xFF1B1B1B),
-                            fontFamily: 'Rubik',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            letterSpacing: 1,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 0.0, bottom: 0),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.star_rounded,
-                        size: 18,
-                        color: Colors.amber,
-                      ),
-                      SizedBox(
-                        width: size.width * 0.48,
-                        child: Text(
-                          " $rating ($totalreviews reviews)",
-                          style: const TextStyle(
-                            color: Color(0xFF1B1B1B),
-                            fontFamily: 'Rubik',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                            letterSpacing: 1,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              height: 10,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 0.0),
+              padding: const EdgeInsets.only(
+                left: 15.0,
+                right: 15,
+                bottom: 15,
+              ),
               child: Container(
-                height: 40,
-                width: 40,
+                height: size.height * 0.3,
+                width: size.width * 0.98,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: const Color.fromARGB(157, 27, 27, 27),
-                    width: 1.5,
-                  ),
-                ),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    color: Color(0xFF016FB9),
-                    size: 18,
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class PopularPlace extends StatelessWidget {
-  const PopularPlace({
-    super.key,
-    required this.size,
-    required this.press,
-    required this.placename,
-    required this.placeaddress,
-    required this.rating,
-    required this.imagelink,
-  });
-
-  final Size size;
-  final VoidCallback press;
-  final String placename;
-  final String placeaddress;
-  final String rating;
-  final String imagelink;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 10.0,
-        right: 10,
-      ),
-      child: InkWell(
-        onTap: press,
-        child: Container(
-          height: size.height * 0.26,
-          width: size.width * 0.75,
-          decoration: BoxDecoration(
-            //color: Colors.red,
-            borderRadius: BorderRadius.circular(20),
-            image: DecorationImage(
-              image: AssetImage(imagelink),
-              fit: BoxFit.cover,
-            ),
-            boxShadow: const [
-              BoxShadow(
-                color: Color.fromARGB(90, 27, 27, 27),
-                blurRadius: 4,
-                offset: Offset(1, 8), // Shadow position
-              ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 15.0, bottom: 2),
-                child: Text(
-                  placename,
-                  style: const TextStyle(
-                    color: Color(0xFFF1F3F4),
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    letterSpacing: 1,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0, bottom: 10),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.place_rounded,
-                      size: 20,
-                      color: Color(0xFFF1F3F4),
-                    ),
-                    SizedBox(
-                      width: size.width * 0.52,
-                      child: Text(
-                        placeaddress,
-                        style: const TextStyle(
-                          color: Color(0xFFF1F3F4),
-                          fontFamily: 'Rubik',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                    ),
-                    const Icon(
-                      Icons.star_rounded,
-                      size: 25,
-                      color: Colors.amberAccent,
-                      //color: Color(0xFFF1F3F4),
-                    ),
-                    Text(
-                      rating,
-                      style: const TextStyle(
-                        color: Color(0xFFF1F3F4),
-                        fontFamily: 'Rubik',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        letterSpacing: 1,
-                      ),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color.fromARGB(90, 27, 27, 27),
+                      blurRadius: 4,
+                      offset: Offset(1, 8), // Shadow position
                     ),
                   ],
                 ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Are we",
+                      style: TextStyle(
+                        color: Color(0xFF1B1B1B),
+                        fontFamily: 'Rubik',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                    const Text(
+                      "missing a place?",
+                      style: TextStyle(
+                        color: Color(0xFF1B1B1B),
+                        fontFamily: 'Rubik',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      width: size.width * 0.65,
+                      height: size.height * 0.08,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          if (user == null) {
+                            errorDialog("Please login to add places");
+                          } else {
+                            errorDialog("Opening");
+                          }
+                        },
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(
+                            color: Colors.black,
+                            width: 2,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Icon(
+                              Icons.add_location_rounded,
+                              color: Color(0xFF1B1B1B),
+                            ),
+                            Text(
+                              "Add a missing place",
+                              style: TextStyle(
+                                color: Color(0xFF1B1B1B),
+                                fontFamily: 'Rubik',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                letterSpacing: 1,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(
+              height: 80,
+            ),
+          ],
         ),
       ),
     );

@@ -45,6 +45,9 @@ dependencies:
   image_picker: ^0.8.7+5
   keyboard_dismisser: ^3.0.0
   smooth_page_indicator: ^1.1.0
+  firebase_auth: ^4.6.2
+  firebase_core: ^2.13.1
+  cloud_firestore: ^4.8.0
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,7 @@
+import 'package:aboutlamjung/landing.dart';
 import 'package:aboutlamjung/user/login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -16,12 +19,77 @@ class _SignUpPageState extends State<SignUpPage> {
   final usernameController = TextEditingController();
   String password = "";
   bool isPasswordVisible = false;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   void initState() {
     super.initState();
     emailController.addListener(() => setState(() {}));
     usernameController.addListener(() => setState(() {}));
+  }
+
+  Future errorDialog(String error) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8))),
+          backgroundColor: Colors.white,
+          elevation: 5,
+          title: Text(
+            error,
+            style: const TextStyle(
+              letterSpacing: 2.5,
+              color: Colors.black,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Rubik',
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future signUp(String email, String pass, String name) async {
+    try {
+      showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (context) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Colors.black,
+              ),
+            );
+          });
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: pass,
+      );
+      final User user = auth.currentUser!;
+      final uid = user.uid;
+      // String dateStr = "${today.day}-${today.month}-${today.year}";
+
+      //debugPrint(dateStr);
+      FirebaseFirestore.instance.collection('users').doc(uid).set({
+        'UserId': uid,
+        'username': name,
+        'email': email,
+        'profile': ''
+      }).then((value) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LandingPage(),
+          ),
+        );
+      });
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      errorDialog(e.toString());
+    }
   }
 
   Widget buildEmail(
@@ -245,7 +313,19 @@ class _SignUpPageState extends State<SignUpPage> {
                   width: 270,
                   height: 60,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (usernameController.text.trim().isNotEmpty &&
+                          emailController.text.trim().isNotEmpty &&
+                          password.isNotEmpty) {
+                        signUp(
+                          emailController.text,
+                          password,
+                          usernameController.text,
+                        );
+                      } else {
+                        errorDialog("Please fill all details");
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF1B1B1B),
                       shape: RoundedRectangleBorder(

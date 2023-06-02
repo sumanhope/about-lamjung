@@ -113,31 +113,31 @@ class _PlacesPageState extends State<PlacesPage> {
                 children: [
                   FilterOption(
                     size: size,
-                    option: "Shop",
+                    option: "Shops",
                   ),
                   FilterOption(
                     size: size,
-                    option: "Hotel",
+                    option: "Hotels",
                   ),
                   FilterOption(
                     size: size,
-                    option: "Resturant",
+                    option: "Restaurants",
                   ),
                   FilterOption(
                     size: size,
-                    option: "School",
+                    option: "Education",
                   ),
                   FilterOption(
                     size: size,
-                    option: "Hospital",
+                    option: "Hospitals",
                   ),
                   FilterOption(
                     size: size,
-                    option: "Temple",
+                    option: "Temples",
                   ),
                   FilterOption(
                     size: size,
-                    option: "Place",
+                    option: "Places",
                   ),
                   const SizedBox(
                     width: 15,
@@ -167,7 +167,7 @@ class FilterOption extends StatelessWidget {
       padding: const EdgeInsets.only(left: 15.0),
       child: Container(
         height: size.height * 0.056,
-        width: size.width * 0.27,
+        width: size.width * 0.3,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
