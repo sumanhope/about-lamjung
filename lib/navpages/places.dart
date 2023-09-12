@@ -105,46 +105,46 @@ class _PlacesPageState extends State<PlacesPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildSearch(),
-            SizedBox(
-              height: size.height * 0.07,
-              child: ListView(
-                padding: const EdgeInsets.only(bottom: 8),
-                scrollDirection: Axis.horizontal,
-                children: [
-                  FilterOption(
-                    size: size,
-                    option: "Shops",
-                  ),
-                  FilterOption(
-                    size: size,
-                    option: "Hotels",
-                  ),
-                  FilterOption(
-                    size: size,
-                    option: "Restaurants",
-                  ),
-                  FilterOption(
-                    size: size,
-                    option: "Education",
-                  ),
-                  FilterOption(
-                    size: size,
-                    option: "Hospitals",
-                  ),
-                  FilterOption(
-                    size: size,
-                    option: "Temples",
-                  ),
-                  FilterOption(
-                    size: size,
-                    option: "Places",
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                ],
-              ),
-            ),
+            // SizedBox(
+            //   height: size.height * 0.07,
+            //   child: ListView(
+            //     padding: const EdgeInsets.only(bottom: 8),
+            //     scrollDirection: Axis.horizontal,
+            //     children: [
+            //       FilterOption(
+            //         size: size,
+            //         option: "Shops",
+            //       ),
+            //       FilterOption(
+            //         size: size,
+            //         option: "Hotels",
+            //       ),
+            //       FilterOption(
+            //         size: size,
+            //         option: "Restaurants",
+            //       ),
+            //       FilterOption(
+            //         size: size,
+            //         option: "Education",
+            //       ),
+            //       FilterOption(
+            //         size: size,
+            //         option: "Hospitals",
+            //       ),
+            //       FilterOption(
+            //         size: size,
+            //         option: "Temples",
+            //       ),
+            //       FilterOption(
+            //         size: size,
+            //         option: "Places",
+            //       ),
+            //       const SizedBox(
+            //         width: 15,
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),

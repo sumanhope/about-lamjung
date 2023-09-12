@@ -1,3 +1,4 @@
+import 'package:aboutlamjung/navpages/details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -55,7 +56,7 @@ class _HomePageState extends State<HomePage> {
               size: 30,
             ),
             SizedBox(
-              width: 2,
+              width: 5,
             ),
             Text(
               "Lamjung,Nepal",
@@ -143,7 +144,16 @@ class _HomePageState extends State<HomePage> {
                     placename: "Something Hills",
                     placeaddress: "Bhotewodar, Lamjung",
                     rating: "5.0",
-                    press: () {},
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const DetailsPage();
+                          },
+                        ),
+                      );
+                    },
                   ),
                   PopularPlace(
                     size: size,

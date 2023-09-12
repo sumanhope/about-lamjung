@@ -49,32 +49,19 @@ class PopularPlace extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 15.0, bottom: 2),
-                child: Text(
-                  placename,
-                  style: const TextStyle(
-                    color: Color(0xFFF1F3F4),
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    letterSpacing: 1,
-                  ),
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.7),
+                  borderRadius: const BorderRadius.vertical(bottom: Radius.circular(20)),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0, bottom: 10),
-                child: Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const Icon(
-                      Icons.place_rounded,
-                      size: 20,
-                      color: Color(0xFFF1F3F4),
-                    ),
-                    SizedBox(
-                      width: size.width * 0.52,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15.0, bottom: 2,top:4),
                       child: Text(
-                        placeaddress,
+                        placename,
                         style: const TextStyle(
                           color: Color(0xFFF1F3F4),
                           fontFamily: 'Rubik',
@@ -84,20 +71,45 @@ class PopularPlace extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Icon(
-                      Icons.star_rounded,
-                      size: 25,
-                      color: Colors.amberAccent,
-                      //color: Color(0xFFF1F3F4),
-                    ),
-                    Text(
-                      rating,
-                      style: const TextStyle(
-                        color: Color(0xFFF1F3F4),
-                        fontFamily: 'Rubik',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        letterSpacing: 1,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0, bottom: 5),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.place_rounded,
+                            size: 20,
+                            color: Color(0xFFF1F3F4),
+                          ),
+                          SizedBox(
+                            width: size.width * 0.52,
+                            child: Text(
+                              placeaddress,
+                              style: const TextStyle(
+                                color: Color(0xFFF1F3F4),
+                                fontFamily: 'Rubik',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                letterSpacing: 1,
+                              ),
+                            ),
+                          ),
+                          const Icon(
+                            Icons.star_rounded,
+                            size: 25,
+                            color: Colors.amberAccent,
+                            //color: Color(0xFFF1F3F4),
+                          ),
+                          Text(
+                            rating,
+                            style: const TextStyle(
+                              color: Color(0xFFF1F3F4),
+                              fontFamily: 'Rubik',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              letterSpacing: 1,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],

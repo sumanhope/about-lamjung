@@ -1,6 +1,7 @@
 import 'package:aboutlamjung/navpages/places.dart';
 import 'package:aboutlamjung/navpages/profile.dart';
 import 'package:aboutlamjung/navpages/weather.dart';
+import 'package:aboutlamjung/theme/color.dart';
 import 'package:flutter/material.dart';
 
 import 'navpages/homepage.dart';
@@ -40,9 +41,9 @@ class _LandingPageState extends State<LandingPage> {
                   ),
                   child: BottomNavigationBar(
                     type: BottomNavigationBarType.fixed, // Fixed
-                    backgroundColor: const Color(0xFF1B1B1B),
-                    selectedItemColor: const Color(0xFFF1F3F4),
-                    unselectedItemColor: Colors.grey,
+                    backgroundColor: AppColor.backGroundColor,
+                    selectedItemColor: AppColor.selectedItemColor,
+                    unselectedItemColor: AppColor.unselectedItemColor,
 
                     // fixedColor: Colors.amber,
                     showSelectedLabels: false,
