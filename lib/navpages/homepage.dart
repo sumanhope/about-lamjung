@@ -1,3 +1,4 @@
+import 'package:aboutlamjung/navpages/addplace.dart';
 import 'package:aboutlamjung/navpages/details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -141,15 +142,25 @@ class _HomePageState extends State<HomePage> {
                   PopularPlace(
                     size: size,
                     imagelink: "assets/images/skyhill.jpg",
-                    placename: "Something Hills",
-                    placeaddress: "Bhotewodar, Lamjung",
-                    rating: "5.0",
+                    placename: "Suman Kirana and Hotel",
+                    placeaddress: "Siundibar, Lamjung",
+                    rating: "4.5",
                     press: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return const DetailsPage();
+                            return const DetailsPage(
+                              placeName: "Suman Kirana and Hotel",
+                              placeAddress: "Siundibar, Lamjung",
+                              placeRating: "4.5",
+                              placeDescription:
+                                  "This establishment conveniently combines a grocery store and a hotel,"
+                                  " offering a delightful emphasis on breakfast cuisine. Renowned for its "
+                                  "affordability and delectable flavors, this place is a go-to destination "
+                                  "for those seeking delicious meals. ",
+                              imagelink: "assets/images/skyhill.jpg",
+                            );
                           },
                         ),
                       );
@@ -161,7 +172,22 @@ class _HomePageState extends State<HomePage> {
                     placename: "Something mountain",
                     placeaddress: "Bhotewodar, Lamjung",
                     rating: "4.0",
-                    press: () {},
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const DetailsPage(
+                              placeName: "Something mountain",
+                              placeAddress: "Bhotewodar, Lamjung",
+                              placeRating: "4.0",
+                              placeDescription: "A mountain pic",
+                              imagelink: "assets/images/hillstwo.jpg",
+                            );
+                          },
+                        ),
+                      );
+                    },
                   ),
                   PopularPlace(
                     size: size,
@@ -291,11 +317,15 @@ class _HomePageState extends State<HomePage> {
                       height: size.height * 0.08,
                       child: OutlinedButton(
                         onPressed: () {
-                          if (user == null) {
-                            errorDialog("Please login to add places");
-                          } else {
-                            errorDialog("Opening");
-                          }
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return AddPlacePage();
+                          }));
+                          // if (user == null) {
+                          //   errorDialog("Please login to add places");
+                          // } else {
+                          //   errorDialog("Opening");
+                          // }
                         },
                         style: OutlinedButton.styleFrom(
                           side: const BorderSide(
