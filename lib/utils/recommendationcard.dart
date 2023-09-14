@@ -1,3 +1,4 @@
+import 'package:aboutlamjung/theme/color.dart';
 import 'package:flutter/material.dart';
 
 class RecommendationCard extends StatelessWidget {
@@ -38,7 +39,7 @@ class RecommendationCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             boxShadow: const [
               BoxShadow(
-                color: Color.fromARGB(90, 27, 27, 27),
+                color: AppColor.shadowColor,
                 blurRadius: 4,
                 offset: Offset(1, 8), // Shadow position
               ),
@@ -84,7 +85,7 @@ class RecommendationCard extends StatelessWidget {
                         const Icon(
                           Icons.place_rounded,
                           size: 18,
-                          color: Color(0xFF1B1B1B),
+                          color: AppColor.primaryColor,
                         ),
                         SizedBox(
                           width: size.width * 0.48,
@@ -144,7 +145,7 @@ class RecommendationCard extends StatelessWidget {
                   child: IconButton(
                     icon: const Icon(
                       Icons.arrow_forward_ios_rounded,
-                      color: Color(0xFF016FB9),
+                      color: AppColor.secondaryColor,
                       size: 18,
                     ),
                     onPressed: () {},

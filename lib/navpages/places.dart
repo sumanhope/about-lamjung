@@ -1,4 +1,6 @@
 import 'package:aboutlamjung/navpages/details.dart';
+import 'package:aboutlamjung/theme/color.dart';
+import 'package:aboutlamjung/theme/texts.dart';
 import 'package:aboutlamjung/utils/missingplace.dart';
 import 'package:aboutlamjung/utils/recommendationcard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,10 +28,10 @@ class _PlacesPageState extends State<PlacesPage> {
       child: SizedBox(
         child: TextField(
           controller: searchContorller,
-          cursorColor: const Color(0xFF1B1B1B),
+          cursorColor: AppColor.primaryColor,
           decoration: InputDecoration(
             filled: true,
-            fillColor: const Color(0xFFD2E1DC),
+            fillColor: AppColor.fillColor,
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(width: 2),
               borderRadius: BorderRadius.all(
@@ -45,27 +47,21 @@ class _PlacesPageState extends State<PlacesPage> {
             prefixIcon: const Icon(
               Icons.search,
               size: 25,
-              color: Color(0xFF1B1B1B),
+              color: AppColor.primaryColor,
             ),
             suffixIcon: searchContorller.text.isEmpty
                 ? Container(width: 0)
                 : IconButton(
                     icon: const Icon(
                       Icons.close,
-                      color: Color(0xFF1B1B1B),
+                      color: AppColor.primaryColor,
                     ),
                     onPressed: () => searchContorller.clear(),
                   ),
           ),
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.done,
-          style: const TextStyle(
-            color: Color(0xFF1B1B1B),
-            fontFamily: 'Rubik',
-            letterSpacing: 1,
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-          ),
+          style: AppTexts.basicText,
         ),
       ),
     );
@@ -77,29 +73,23 @@ class _PlacesPageState extends State<PlacesPage> {
     return KeyboardDismisser(
       gestures: const [GestureType.onPanUpdateAnyDirection, GestureType.onTap],
       child: Scaffold(
-        backgroundColor: const Color.fromRGBO(226, 231, 231, 1),
+        backgroundColor: AppColor.backgroundColor,
         appBar: AppBar(
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
-          title: const Row(
+          title: Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.place,
-                color: Color(0xFF1B1B1B),
+                color: AppColor.primaryColor,
                 size: 30,
               ),
               SizedBox(
-                width: 2,
+                width: size.width * 0.015,
               ),
-              Text(
+              const Text(
                 "Places",
-                style: TextStyle(
-                  color: Color(0xFF1B1B1B),
-                  fontFamily: 'Rubik',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  letterSpacing: 1,
-                ),
+                style: AppTexts.appbarText,
               ),
             ],
           ),
@@ -128,13 +118,7 @@ class _PlacesPageState extends State<PlacesPage> {
                       child: Text(
                         "Error: ${snapshot.error}",
                         textAlign: TextAlign.justify,
-                        style: const TextStyle(
-                          color: Color(0xFF1B1B1B),
-                          fontFamily: 'Rubik',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          letterSpacing: 1,
-                        ),
+                        style: AppTexts.descriptionText,
                       ),
                     );
                   }
@@ -307,7 +291,7 @@ class FilterOption extends StatelessWidget {
           child: Text(
             option,
             style: const TextStyle(
-              color: Color(0xFF1B1B1B),
+              color: AppColor.primaryColor,
               fontFamily: 'Rubik',
               fontWeight: FontWeight.bold,
               fontSize: 17,

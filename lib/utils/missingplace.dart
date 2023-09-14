@@ -1,4 +1,5 @@
 import 'package:aboutlamjung/navpages/addplace.dart';
+import 'package:aboutlamjung/theme/color.dart';
 import 'package:flutter/material.dart';
 
 class MissingPlace extends StatelessWidget {
@@ -21,7 +22,7 @@ class MissingPlace extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           boxShadow: const [
             BoxShadow(
-              color: Color.fromARGB(90, 27, 27, 27),
+              color: AppColor.shadowColor,
               blurRadius: 4,
               offset: Offset(1, 8), // Shadow position
             ),
@@ -81,7 +82,7 @@ class MissingPlace extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.add_location_rounded,
-                      color: Color(0xFF1B1B1B),
+                      color: AppColor.primaryColor,
                     ),
                     Text(
                       "Add a missing place",

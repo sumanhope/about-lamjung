@@ -1,9 +1,10 @@
 import 'package:aboutlamjung/onboard/onboarding.dart';
+import 'package:aboutlamjung/theme/color.dart';
+import 'package:aboutlamjung/theme/texts.dart';
 import 'package:aboutlamjung/user/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -52,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
             borderRadius: BorderRadius.circular(15),
             boxShadow: const [
               BoxShadow(
-                color: Color.fromARGB(90, 27, 27, 27),
+                color: AppColor.shadowColor,
                 blurRadius: 3,
                 offset: Offset(1, 5), // Shadow position
               ),
@@ -65,13 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: EdgeInsets.only(bottom: 15.0, left: 15, right: 15),
                 child: Text(
                   "Log in to add place, leave review, give rating and access bookmarks.",
-                  style: TextStyle(
-                    color: Color(0xFF1B1B1B),
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                    letterSpacing: 1,
-                  ),
+                  style: AppTexts.descriptionText,
                 ),
               ),
               Align(
@@ -89,20 +84,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1B1B1B),
+                      backgroundColor: AppColor.primaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
                     ),
                     child: const Text(
                       "Login",
-                      style: TextStyle(
-                        color: Color(0xFFF1F3F4),
-                        fontFamily: 'Rubik',
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1,
-                      ),
+                      style: AppTexts.whitebasicText,
                     ),
                   ),
                 ),
@@ -125,19 +114,25 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(226, 231, 231, 1),
+      backgroundColor: AppColor.backgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
-        title: const Text(
-          "Profile",
-          style: TextStyle(
-            color: Color(0xFF1B1B1B),
-            fontFamily: 'Rubik',
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-            letterSpacing: 1,
-          ),
+        title: Row(
+          children: [
+            const Icon(
+              Icons.person,
+              color: AppColor.primaryColor,
+              size: 30,
+            ),
+            SizedBox(
+              width: size.width * 0.015,
+            ),
+            const Text(
+              "Profile",
+              style: AppTexts.appbarText,
+            ),
+          ],
         ),
         actions: [
           Padding(
@@ -185,6 +180,12 @@ class _ProfilePageState extends State<ProfilePage> {
               secondicon: Icons.arrow_forward_ios_rounded,
               press: () {},
             ),
+          ProfileMenu(
+            text: "Support",
+            firsticon: Icons.help_rounded,
+            secondicon: Icons.arrow_forward_ios_rounded,
+            press: () {},
+          ),
           if (user != null)
             ProfileMenu(
               text: "Logout",
@@ -201,12 +202,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 });
               },
             ),
-          ProfileMenu(
-            text: "Support",
-            firsticon: Icons.help_rounded,
-            secondicon: Icons.arrow_forward_ios_rounded,
-            press: () {},
-          ),
         ],
       ),
     );
@@ -235,7 +230,7 @@ class ProfileMenu extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          shadowColor: const Color.fromARGB(181, 27, 27, 27),
+          shadowColor: AppColor.shadowColor,
           elevation: 5,
           backgroundColor: Colors.white,
         ),
@@ -245,25 +240,20 @@ class ProfileMenu extends StatelessWidget {
             Icon(
               firsticon,
               size: 25,
-              color: const Color(0xFF1B1B1B),
+              color: AppColor.primaryColor,
             ),
             const SizedBox(
               width: 10,
             ),
             Text(
               text,
-              style: const TextStyle(
-                fontSize: 18,
-                color: Color(0xFF1B1B1B),
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Poppins',
-              ),
+              style: AppTexts.basicText,
             ),
             const Spacer(),
             Icon(
               secondicon,
-              size: 20,
-              color: const Color(0xFF1B1B1B),
+              size: 22,
+              color: AppColor.primaryColor,
             ),
           ],
         ),

@@ -1,4 +1,6 @@
 import 'package:aboutlamjung/landing.dart';
+import 'package:aboutlamjung/theme/color.dart';
+import 'package:aboutlamjung/theme/texts.dart';
 import 'package:aboutlamjung/user/login.dart';
 import 'package:aboutlamjung/user/signup.dart';
 import 'package:flutter/material.dart';
@@ -119,13 +121,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 child: const Text(
                   "Explore Lamjung with us.",
-                  style: TextStyle(
-                    color: Color(0xFFF1F3F4),
-                    fontFamily: 'Rubik',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.2,
-                  ),
+                  style: AppTexts.whiteappbarText,
                 ),
               ),
             ),
@@ -143,7 +139,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               width: size.width,
               height: size.height * 0.22,
               decoration: const BoxDecoration(
-                color: Color(0xFFF1F3F4),
+                color: AppColor.selectedItemColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(25),
                   topRight: Radius.circular(25),
@@ -171,20 +167,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF1B1B1B),
+                          backgroundColor: AppColor.primaryColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
                         child: const Text(
                           "Lets's Get Started ->",
-                          style: TextStyle(
-                            color: Color(0xFFF1F3F4),
-                            fontFamily: 'Rubik',
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1,
-                          ),
+                          style: AppTexts.whitebasicText,
                         ),
                       ),
                     ),
@@ -197,35 +187,26 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       children: [
                         const Text(
                           "Already have a account?",
-                          style: TextStyle(
-                            color: Color(0xFF1B1B1B),
-                            fontFamily: 'Rubik',
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1,
-                          ),
+                          style: AppTexts.descriptionText,
                         ),
                         SizedBox(
                           height: 35,
                           child: TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return const LoginPage();
-                                    },
-                                  ),
-                                );
-                              },
-                              child: const Text(
-                                "Login",
-                                style: TextStyle(
-                                  color: Color(0xFF016FB9),
-                                  fontFamily: 'Rubik',
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return const LoginPage();
+                                  },
                                 ),
-                              )),
+                              );
+                            },
+                            child: const Text(
+                              "Login",
+                              style: AppTexts.bluedescriptionText,
+                            ),
+                          ),
                         )
                       ],
                     ),

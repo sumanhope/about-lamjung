@@ -1,4 +1,5 @@
 import 'package:aboutlamjung/landing.dart';
+import 'package:aboutlamjung/theme/color.dart';
 import 'package:aboutlamjung/user/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -99,7 +100,7 @@ class _SignUpPageState extends State<SignUpPage> {
       child: SizedBox(
         child: TextField(
           controller: which,
-          cursorColor: const Color(0xFF1B1B1B),
+          cursorColor: AppColor.primaryColor,
           decoration: InputDecoration(
             filled: true,
 

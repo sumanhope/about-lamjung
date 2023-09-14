@@ -1,3 +1,5 @@
+import 'package:aboutlamjung/theme/color.dart';
+import 'package:aboutlamjung/theme/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -21,10 +23,10 @@ class _AddPlacePageState extends State<AddPlacePage> {
       child: SizedBox(
         child: TextField(
           controller: controller,
-          cursorColor: const Color(0xFF1B1B1B),
+          cursorColor: AppColor.primaryColor,
           decoration: InputDecoration(
             filled: true,
-            fillColor: const Color(0xFFD2E1DC),
+            fillColor: AppColor.fillColor,
             hintText: hint,
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(width: 2),
@@ -41,18 +43,12 @@ class _AddPlacePageState extends State<AddPlacePage> {
             prefixIcon: Icon(
               icons,
               size: 25,
-              color: const Color(0xFF1B1B1B),
+              color: AppColor.primaryColor,
             ),
           ),
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.done,
-          style: const TextStyle(
-            color: Color(0xFF1B1B1B),
-            fontFamily: 'Rubik',
-            letterSpacing: 1,
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-          ),
+          style: AppTexts.basicText,
         ),
       ),
     );
@@ -78,7 +74,7 @@ class _AddPlacePageState extends State<AddPlacePage> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                  color: const Color.fromARGB(157, 27, 27, 27),
+                  color: AppColor.shadowColor,
                   width: 1.5,
                 ),
               ),
@@ -87,7 +83,7 @@ class _AddPlacePageState extends State<AddPlacePage> {
                 icon: const Icon(
                   Icons.arrow_back_ios,
                   size: 25,
-                  color: Color(0xFF016FB9),
+                  color: AppColor.secondaryColor,
                 ),
                 onPressed: () {
                   Navigator.pop(context);
@@ -97,13 +93,7 @@ class _AddPlacePageState extends State<AddPlacePage> {
           ),
           title: const Text(
             "Add Place ",
-            style: TextStyle(
-              color: Color(0xFF1B1B1B),
-              fontFamily: 'Rubik',
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-              letterSpacing: 1,
-            ),
+            style: AppTexts.appbarText,
           ),
           elevation: 0,
           actions: [
@@ -115,7 +105,7 @@ class _AddPlacePageState extends State<AddPlacePage> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                    color: const Color.fromARGB(157, 27, 27, 27),
+                    color: AppColor.shadowColor,
                     width: 1.5,
                   ),
                 ),
@@ -124,7 +114,7 @@ class _AddPlacePageState extends State<AddPlacePage> {
                   icon: const Icon(
                     Icons.help_sharp,
                     size: 25,
-                    color: Color(0xFF016FB9),
+                    color: AppColor.secondaryColor,
                   ),
                   onPressed: () {},
                 ),
@@ -145,7 +135,7 @@ class _AddPlacePageState extends State<AddPlacePage> {
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: const [
                       BoxShadow(
-                        color: Color.fromARGB(90, 27, 27, 27),
+                        color: AppColor.shadowColor,
                         blurRadius: 4,
                         offset: Offset(1, 8), // Shadow position
                       ),
@@ -163,7 +153,7 @@ class _AddPlacePageState extends State<AddPlacePage> {
                   borderRadius: BorderRadius.circular(5),
                   boxShadow: const [
                     BoxShadow(
-                      color: Color.fromARGB(90, 27, 27, 27),
+                      color: AppColor.shadowColor,
                       blurRadius: 4,
                       offset: Offset(1, 8), // Shadow position
                     ),
@@ -179,13 +169,7 @@ class _AddPlacePageState extends State<AddPlacePage> {
                   ),
                   child: const Text(
                     "Upload Photo",
-                    style: TextStyle(
-                      color: Color(0xFFF1F3F4),
-                      fontFamily: 'Rubik',
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1,
-                    ),
+                    style: AppTexts.whitebasicText,
                   ),
                 ),
               ),
@@ -225,7 +209,7 @@ class _AddPlacePageState extends State<AddPlacePage> {
                       borderRadius: BorderRadius.circular(5),
                       boxShadow: const [
                         BoxShadow(
-                          color: Color.fromARGB(90, 27, 27, 27),
+                          color: AppColor.shadowColor,
                           blurRadius: 4,
                           offset: Offset(1, 8), // Shadow position
                         ),
@@ -239,20 +223,14 @@ class _AddPlacePageState extends State<AddPlacePage> {
                         placeopentimecontroller.clear();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1B1B1B),
+                        backgroundColor: AppColor.primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                       child: const Text(
                         "Clear all",
-                        style: TextStyle(
-                          color: Color(0xFFF1F3F4),
-                          fontFamily: 'Rubik',
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1,
-                        ),
+                        style: AppTexts.whitebasicText,
                       ),
                     ),
                   ),
@@ -263,7 +241,7 @@ class _AddPlacePageState extends State<AddPlacePage> {
                       borderRadius: BorderRadius.circular(5),
                       boxShadow: const [
                         BoxShadow(
-                          color: Color.fromARGB(90, 27, 27, 27),
+                          color: AppColor.shadowColor,
                           blurRadius: 4,
                           offset: Offset(1, 8), // Shadow position
                         ),
@@ -272,20 +250,14 @@ class _AddPlacePageState extends State<AddPlacePage> {
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 8, 85, 194),
+                        backgroundColor: AppColor.secondaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                       child: const Text(
                         "Submit",
-                        style: TextStyle(
-                          color: Color(0xFFF1F3F4),
-                          fontFamily: 'Rubik',
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1,
-                        ),
+                        style: AppTexts.whitebasicText,
                       ),
                     ),
                   ),

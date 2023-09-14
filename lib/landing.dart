@@ -27,7 +27,7 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.green,
+        backgroundColor: AppColor.backgroundColor,
         body: Stack(
           children: [
             pages.elementAt(currentStep),
@@ -41,7 +41,7 @@ class _LandingPageState extends State<LandingPage> {
                   ),
                   child: BottomNavigationBar(
                     type: BottomNavigationBarType.fixed, // Fixed
-                    backgroundColor: AppColor.backGroundColor,
+                    backgroundColor: AppColor.primaryColor,
                     selectedItemColor: AppColor.selectedItemColor,
                     unselectedItemColor: AppColor.unselectedItemColor,
 

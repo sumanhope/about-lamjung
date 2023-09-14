@@ -1,5 +1,7 @@
 import 'package:aboutlamjung/model/weathermodel.dart';
 import 'package:aboutlamjung/services/weatherapi.dart';
+import 'package:aboutlamjung/theme/color.dart';
+import 'package:aboutlamjung/theme/texts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -73,29 +75,23 @@ class _WeatherPageState extends State<WeatherPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(226, 231, 231, 1),
+      backgroundColor: AppColor.backgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
-        title: const Row(
+        title: Row(
           children: [
-            Icon(
-              Icons.cloud_rounded,
-              color: Color(0xFF1B1B1B),
+            const Icon(
+              Icons.cloud_outlined,
+              color: AppColor.primaryColor,
               size: 30,
             ),
             SizedBox(
-              width: 5,
+              width: size.width * 0.015,
             ),
-            Text(
+            const Text(
               "Weather",
-              style: TextStyle(
-                color: Color(0xFF1B1B1B),
-                fontFamily: 'Rubik',
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                letterSpacing: 1,
-              ),
+              style: AppTexts.appbarText,
             ),
           ],
         ),
@@ -106,7 +102,7 @@ class _WeatherPageState extends State<WeatherPage> {
             icon: const FaIcon(
               FontAwesomeIcons.rotate,
               size: 20,
-              color: Color(0xFF1B1B1B),
+              color: AppColor.primaryColor,
             ),
           )
         ],
@@ -117,9 +113,10 @@ class _WeatherPageState extends State<WeatherPage> {
           future: getData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Padding(
-                padding: EdgeInsets.only(top: 200, left: 190),
-                child: CircularProgressIndicator(
+              return Padding(
+                padding: EdgeInsets.only(
+                    top: size.height * 0.4, left: size.width * 0.45),
+                child: const CircularProgressIndicator(
                   color: Colors.black,
                 ),
               );
@@ -201,7 +198,7 @@ class _WeatherPageState extends State<WeatherPage> {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: const [
                         BoxShadow(
-                          color: Color.fromARGB(90, 27, 27, 27),
+                          color: AppColor.shadowColor,
                           blurRadius: 4,
                           offset: Offset(0, 8), // Shadow position
                         ),
@@ -222,12 +219,7 @@ class _WeatherPageState extends State<WeatherPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             "${data?.wind}m/s (${getDirection(data?.winddeg)})",
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Rubik',
-                            ),
+                            style: AppTexts.basicText,
                           ),
                         ),
                       ],
@@ -247,7 +239,7 @@ class _WeatherPageState extends State<WeatherPage> {
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: const [
                           BoxShadow(
-                            color: Color.fromARGB(90, 27, 27, 27),
+                            color: AppColor.shadowColor,
                             blurRadius: 4,
                             offset: Offset(0, 8), // Shadow position
                           ),
@@ -259,12 +251,7 @@ class _WeatherPageState extends State<WeatherPage> {
                             padding: EdgeInsets.only(top: 8.0),
                             child: Text(
                               "Additional Informations:",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Rubik',
-                              ),
+                              style: AppTexts.basicText,
                             ),
                           ),
                           ExtraWeatherRow(
@@ -308,22 +295,12 @@ class _WeatherPageState extends State<WeatherPage> {
                     children: [
                       Text(
                         "Data provided by ",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Rubik',
-                        ),
+                        style: AppTexts.descriptionText,
                       ),
                       Icon(CupertinoIcons.sun_haze_fill),
                       Text(
                         " OpenWeather",
-                        style: TextStyle(
-                          color: Color(0xFF016FB9),
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Rubik',
-                        ),
+                        style: AppTexts.bluedescriptionText,
                       ),
                     ],
                   ),
@@ -363,24 +340,14 @@ class ExtraWeatherRow extends StatelessWidget {
           ),
           child: Text(
             which,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Rubik',
-            ),
+            style: AppTexts.basicText,
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(right: 15.0, top: 8, bottom: 8),
           child: Text(
             "$amount$denote",
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Rubik',
-            ),
+            style: AppTexts.basicText,
           ),
         ),
       ],
@@ -452,12 +419,7 @@ class RowWeatherDetails extends StatelessWidget {
           padding: const EdgeInsets.only(right: 8.0),
           child: Text(
             "$max° / $min°",
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Rubik',
-            ),
+            style: AppTexts.basicText,
           ),
         ),
       ],

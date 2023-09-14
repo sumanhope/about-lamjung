@@ -1,5 +1,7 @@
 import 'package:aboutlamjung/navpages/addplace.dart';
 import 'package:aboutlamjung/navpages/details.dart';
+import 'package:aboutlamjung/theme/color.dart';
+import 'package:aboutlamjung/theme/texts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -28,13 +30,7 @@ class _HomePageState extends State<HomePage> {
           elevation: 5,
           title: Text(
             error,
-            style: const TextStyle(
-              letterSpacing: 2.5,
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Rubik',
-            ),
+            style: AppTexts.basicText,
           ),
         );
       },
@@ -53,7 +49,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             Icon(
               Icons.place_outlined,
-              color: Color(0xFF1B1B1B),
+              color: AppColor.primaryColor,
               size: 30,
             ),
             SizedBox(
@@ -61,13 +57,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Text(
               "Lamjung,Nepal",
-              style: TextStyle(
-                color: Color(0xFF1B1B1B),
-                fontFamily: 'Rubik',
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                letterSpacing: 1,
-              ),
+              style: AppTexts.appbarText,
             ),
           ],
         ),
@@ -81,7 +71,7 @@ class _HomePageState extends State<HomePage> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: const Color.fromARGB(157, 27, 27, 27),
+                  color: AppColor.shadowColor,
                   width: 1.5,
                 ),
               ),
@@ -89,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                 icon: const Icon(
                   Icons.history_edu_rounded,
                   size: 25,
-                  color: Color(0xFF016FB9),
+                  color: AppColor.secondaryColor,
                 ),
                 onPressed: () {},
               ),
@@ -101,6 +91,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: size.height * 0.01),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -108,26 +99,14 @@ class _HomePageState extends State<HomePage> {
                   padding: EdgeInsets.only(left: 10.0),
                   child: Text(
                     "Popular Place",
-                    style: TextStyle(
-                      color: Color(0xFF1B1B1B),
-                      fontFamily: 'Rubik',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      letterSpacing: 1,
-                    ),
+                    style: AppTexts.basicText,
                   ),
                 ),
                 TextButton(
                   onPressed: () {},
                   child: const Text(
                     "See all",
-                    style: TextStyle(
-                      color: Color(0xFF016FB9),
-                      fontFamily: 'Rubik',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      letterSpacing: 1,
-                    ),
+                    style: AppTexts.bluedescriptionText,
                   ),
                 ),
               ],
@@ -207,13 +186,7 @@ class _HomePageState extends State<HomePage> {
                   padding: EdgeInsets.only(left: 10.0),
                   child: Text(
                     "Recommendation for you",
-                    style: TextStyle(
-                      color: Color(0xFF1B1B1B),
-                      fontFamily: 'Rubik',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      letterSpacing: 1,
-                    ),
+                    style: AppTexts.basicText,
                   ),
                 ),
                 TextButton(
@@ -222,13 +195,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: const Text(
                     "See all",
-                    style: TextStyle(
-                      color: Color(0xFF016FB9),
-                      fontFamily: 'Rubik',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      letterSpacing: 1,
-                    ),
+                    style: AppTexts.bluedescriptionText,
                   ),
                 ),
               ],
@@ -280,7 +247,7 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(15),
                   boxShadow: const [
                     BoxShadow(
-                      color: Color.fromARGB(90, 27, 27, 27),
+                      color: AppColor.shadowColor,
                       blurRadius: 4,
                       offset: Offset(1, 8), // Shadow position
                     ),
@@ -291,26 +258,14 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     const Text(
                       "Are we",
-                      style: TextStyle(
-                        color: Color(0xFF1B1B1B),
-                        fontFamily: 'Rubik',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        letterSpacing: 1,
-                      ),
+                      style: AppTexts.bigText,
                     ),
                     const Text(
                       "missing a place?",
-                      style: TextStyle(
-                        color: Color(0xFF1B1B1B),
-                        fontFamily: 'Rubik',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        letterSpacing: 1,
-                      ),
+                      style: AppTexts.bigText,
                     ),
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: size.height * 0.02,
                     ),
                     SizedBox(
                       width: size.width * 0.65,
@@ -319,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                         onPressed: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return AddPlacePage();
+                            return const AddPlacePage();
                           }));
                           // if (user == null) {
                           //   errorDialog("Please login to add places");
@@ -341,17 +296,11 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Icon(
                               Icons.add_location_rounded,
-                              color: Color(0xFF1B1B1B),
+                              color: AppColor.primaryColor,
                             ),
                             Text(
                               "Add a missing place",
-                              style: TextStyle(
-                                color: Color(0xFF1B1B1B),
-                                fontFamily: 'Rubik',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                letterSpacing: 1,
-                              ),
+                              style: AppTexts.basicText,
                             ),
                           ],
                         ),

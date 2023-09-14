@@ -1,3 +1,4 @@
+import 'package:aboutlamjung/theme/color.dart';
 import 'package:flutter/material.dart';
 
 class PopularPlace extends StatelessWidget {
@@ -39,7 +40,7 @@ class PopularPlace extends StatelessWidget {
             ),
             boxShadow: const [
               BoxShadow(
-                color: Color.fromARGB(90, 27, 27, 27),
+                color: AppColor.shadowColor,
                 blurRadius: 4,
                 offset: Offset(1, 8), // Shadow position
               ),
@@ -51,15 +52,17 @@ class PopularPlace extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.7),
-                  borderRadius: const BorderRadius.vertical(bottom: Radius.circular(20)),
+                  color: Colors.black.withOpacity(0.7),
+                  borderRadius:
+                      const BorderRadius.vertical(bottom: Radius.circular(20)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 15.0, bottom: 2,top:4),
+                      padding:
+                          const EdgeInsets.only(left: 15.0, bottom: 2, top: 4),
                       child: Text(
                         placename,
                         style: const TextStyle(
