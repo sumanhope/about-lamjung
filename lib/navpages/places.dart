@@ -1,3 +1,7 @@
+import 'package:aboutlamjung/navpages/details.dart';
+import 'package:aboutlamjung/utils/missingplace.dart';
+import 'package:aboutlamjung/utils/recommendationcard.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -101,51 +105,170 @@ class _PlacesPageState extends State<PlacesPage> {
           ),
           elevation: 0,
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildSearch(),
-            // SizedBox(
-            //   height: size.height * 0.07,
-            //   child: ListView(
-            //     padding: const EdgeInsets.only(bottom: 8),
-            //     scrollDirection: Axis.horizontal,
-            //     children: [
-            //       FilterOption(
-            //         size: size,
-            //         option: "Shops",
-            //       ),
-            //       FilterOption(
-            //         size: size,
-            //         option: "Hotels",
-            //       ),
-            //       FilterOption(
-            //         size: size,
-            //         option: "Restaurants",
-            //       ),
-            //       FilterOption(
-            //         size: size,
-            //         option: "Education",
-            //       ),
-            //       FilterOption(
-            //         size: size,
-            //         option: "Hospitals",
-            //       ),
-            //       FilterOption(
-            //         size: size,
-            //         option: "Temples",
-            //       ),
-            //       FilterOption(
-            //         size: size,
-            //         option: "Places",
-            //       ),
-            //       const SizedBox(
-            //         width: 15,
-            //       ),
-            //     ],
-            //   ),
-            // ),
-          ],
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildSearch(),
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+              Flexible(
+                  child: StreamBuilder(
+                stream:
+                    FirebaseFirestore.instance.collection("place").snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        "Error: ${snapshot.error}",
+                        textAlign: TextAlign.justify,
+                        style: const TextStyle(
+                          color: Color(0xFF1B1B1B),
+                          fontFamily: 'Rubik',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                    );
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      var data = snapshot.data!.docs[index].data();
+                      if (searchContorller.text.isEmpty) {
+                        return RecommendationCard(
+                          size: size,
+                          imagelink: "assets/images/sky.jpg",
+                          placename: data['placename'].toString(),
+                          placeaddress: data['placeaddress'].toString(),
+                          rating: data['placerating'].toString(),
+                          totalreviews: data['totalreviews'].toString(),
+                          press: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return DetailsPage(
+                                    placeName: data['placename'].toString(),
+                                    placeAddress:
+                                        data['placeaddress'].toString(),
+                                    placeRating: data['placerating'].toString(),
+                                    placeDescription:
+                                        data['placedescription'].toString(),
+                                    imagelink: "assets/images/sky.jpg",
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      }
+                      if (data['placename']
+                          .toString()
+                          .toLowerCase()
+                          .startsWith(searchContorller.text.toLowerCase())) {
+                        return RecommendationCard(
+                          size: size,
+                          imagelink: "assets/images/sky.jpg",
+                          placename: data['placename'].toString(),
+                          placeaddress: data['placeaddress'].toString(),
+                          rating: data['placerating'],
+                          totalreviews: data['totalreviews'].toString(),
+                          press: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return DetailsPage(
+                                    placeName: data['placename'].toString(),
+                                    placeAddress:
+                                        data['placeaddress'].toString(),
+                                    placeRating: data['placerating'].toString(),
+                                    placeDescription:
+                                        data['placedescription'].toString(),
+                                    imagelink: "assets/images/sky.jpg",
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      }
+                      if (index == snapshot.data!.docs.length - 1) {
+                        return Center(
+                          child: Column(
+                            children: [
+                              const Text(
+                                'No similar place found',
+                                style: TextStyle(
+                                  letterSpacing: 1.2,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Poppins',
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height * 0.08,
+                              ),
+                              const MissingPlace(),
+                            ],
+                          ),
+                        );
+                      }
+                      return Container();
+                    },
+                  );
+                },
+              ))
+              // SizedBox(
+              //   height: size.height * 0.07,
+              //   child: ListView(
+              //     padding: const EdgeInsets.only(bottom: 8),
+              //     scrollDirection: Axis.horizontal,
+              //     children: [
+              //       FilterOption(
+              //         size: size,
+              //         option: "Shops",
+              //       ),
+              //       FilterOption(
+              //         size: size,
+              //         option: "Hotels",
+              //       ),
+              //       FilterOption(
+              //         size: size,
+              //         option: "Restaurants",
+              //       ),
+              //       FilterOption(
+              //         size: size,
+              //         option: "Education",
+              //       ),
+              //       FilterOption(
+              //         size: size,
+              //         option: "Hospitals",
+              //       ),
+              //       FilterOption(
+              //         size: size,
+              //         option: "Temples",
+              //       ),
+              //       FilterOption(
+              //         size: size,
+              //         option: "Places",
+              //       ),
+              //       const SizedBox(
+              //         width: 15,
+              //       ),
+              //     ],
+              //   ),
+              // ),
+            ],
+          ),
         ),
       ),
     );

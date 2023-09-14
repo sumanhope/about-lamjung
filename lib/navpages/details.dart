@@ -116,6 +116,7 @@ class _DetailsPageState extends State<DetailsPage> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               height: size.height * 0.35,
@@ -319,7 +320,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     height: size.height * 0.02,
                   ),
                   Container(
-                    height: size.height * 0.17,
+                    height: size.height * 0.18,
                     width: size.width,
                     decoration: const BoxDecoration(
                       color: Colors.white,
@@ -341,6 +342,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       child: Text(
                         widget.placeDescription,
                         textAlign: TextAlign.justify,
+                        softWrap: true,
                         style: const TextStyle(
                           color: Color(0xFF1B1B1B),
                           fontFamily: 'Rubik',
@@ -361,7 +363,7 @@ class _DetailsPageState extends State<DetailsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  height: size.height * 0.1,
+                  height: size.height * 0.08,
                   width: size.width * 0.45,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
@@ -394,7 +396,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
                 Container(
-                  height: size.height * 0.1,
+                  height: size.height * 0.08,
                   width: size.width * 0.45,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
