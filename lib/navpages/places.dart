@@ -189,17 +189,8 @@ class _PlacesPageState extends State<PlacesPage> {
                         return Center(
                           child: Column(
                             children: [
-                              const Text(
-                                'No similar place found',
-                                style: TextStyle(
-                                  letterSpacing: 1.2,
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Poppins',
-                                ),
-                              ),
                               SizedBox(
-                                height: size.height * 0.08,
+                                height: size.height * 0.02,
                               ),
                               const MissingPlace(),
                             ],
@@ -211,92 +202,7 @@ class _PlacesPageState extends State<PlacesPage> {
                   );
                 },
               ))
-              // SizedBox(
-              //   height: size.height * 0.07,
-              //   child: ListView(
-              //     padding: const EdgeInsets.only(bottom: 8),
-              //     scrollDirection: Axis.horizontal,
-              //     children: [
-              //       FilterOption(
-              //         size: size,
-              //         option: "Shops",
-              //       ),
-              //       FilterOption(
-              //         size: size,
-              //         option: "Hotels",
-              //       ),
-              //       FilterOption(
-              //         size: size,
-              //         option: "Restaurants",
-              //       ),
-              //       FilterOption(
-              //         size: size,
-              //         option: "Education",
-              //       ),
-              //       FilterOption(
-              //         size: size,
-              //         option: "Hospitals",
-              //       ),
-              //       FilterOption(
-              //         size: size,
-              //         option: "Temples",
-              //       ),
-              //       FilterOption(
-              //         size: size,
-              //         option: "Places",
-              //       ),
-              //       const SizedBox(
-              //         width: 15,
-              //       ),
-              //     ],
-              //   ),
-              // ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class FilterOption extends StatelessWidget {
-  const FilterOption({
-    super.key,
-    required this.size,
-    required this.option,
-  });
-
-  final Size size;
-  final String option;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 15.0),
-      child: Container(
-        height: size.height * 0.056,
-        width: size.width * 0.3,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: const [
-            BoxShadow(
-              color: Color.fromARGB(90, 27, 27, 27),
-              blurRadius: 2,
-              offset: Offset(1, 3), // Shadow position
-            ),
-          ],
-        ),
-        child: Align(
-          alignment: Alignment.center,
-          child: Text(
-            option,
-            style: const TextStyle(
-              color: AppColor.primaryColor,
-              fontFamily: 'Rubik',
-              fontWeight: FontWeight.bold,
-              fontSize: 17,
-              letterSpacing: 1,
-            ),
           ),
         ),
       ),

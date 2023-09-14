@@ -27,6 +27,7 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: AppColor.backgroundColor,
         body: Stack(
           children: [

@@ -1,7 +1,10 @@
 import 'package:aboutlamjung/theme/color.dart';
 import 'package:aboutlamjung/theme/texts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'dart:math';
 
 class AddPlacePage extends StatefulWidget {
   const AddPlacePage({super.key});
@@ -16,6 +19,51 @@ class _AddPlacePageState extends State<AddPlacePage> {
   final placedescriptioncontroller = TextEditingController();
   final placeopentimecontroller = TextEditingController();
 
+  String generateUniqueId(int length) {
+    const String characters =
+        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    final Random random = Random.secure();
+    final StringBuffer buffer = StringBuffer();
+
+    for (int i = 0; i < length; i++) {
+      final int randomIndex = random.nextInt(characters.length);
+      buffer.write(characters[randomIndex]);
+    }
+
+    return buffer.toString();
+    //0.00000000000000000000000000000287
+  }
+
+  Future errorDialog(String error) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+          backgroundColor: AppColor.selectedItemColor,
+          elevation: 5,
+          title: Text(
+            error,
+            style: AppTexts.basicText,
+          ),
+        );
+      },
+    );
+  }
+
+  bool checkfield() {
+    if (placenamecontroller.text.trim().isNotEmpty &&
+        placeaddresscontroller.text.trim().isNotEmpty &&
+        placedescriptioncontroller.text.trim().isNotEmpty &&
+        placeopentimecontroller.text.trim().isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Widget buildTextfield(
       TextEditingController controller, IconData icons, String hint) {
     return Padding(
@@ -24,6 +72,13 @@ class _AddPlacePageState extends State<AddPlacePage> {
         child: TextField(
           controller: controller,
           cursorColor: AppColor.primaryColor,
+          maxLength: 250,
+          maxLines: null,
+          buildCounter: (BuildContext context,
+                  {int? currentLength, int? maxLength, bool? isFocused}) =>
+              null,
+          enableSuggestions: false,
+          maxLengthEnforcement: MaxLengthEnforcement.enforced,
           decoration: InputDecoration(
             filled: true,
             fillColor: AppColor.fillColor,
@@ -47,11 +102,65 @@ class _AddPlacePageState extends State<AddPlacePage> {
             ),
           ),
           keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.done,
+          textInputAction: TextInputAction.next,
           style: AppTexts.basicText,
         ),
       ),
     );
+  }
+
+  Future submitplace(
+    String placeid,
+    String placename,
+    String placeaddress,
+    String placedescription,
+    String opentime,
+  ) async {
+    try {
+      showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (context) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: AppColor.primaryColor,
+              ),
+            );
+          });
+      FirebaseFirestore.instance
+          .collection('place')
+          .doc(placeid)
+          .get()
+          .then((docSnapshot) {
+        if (docSnapshot.exists) {
+          // Document with the same ID already exists; handle it here
+          Navigator.pop(context);
+          errorDialog(
+              'Incredible! A Duplicate ID($placeid) Has Been Unearthed! (Chance of This Happening: 0.00000000000000000000000000000287)');
+        } else {
+          // Document with the same ID does not exist; proceed to add it
+          FirebaseFirestore.instance.collection('place').doc(placeid).set({
+            'placeid': placeid,
+            'placename': placename,
+            'placeaddress': placeaddress,
+            'placedescription': placedescription,
+            'opentime': opentime,
+            'placerating': "0",
+            'totalreviews': "0",
+            'imagelink': "",
+            'contactno': "",
+          }).then(
+            (value) {
+              Navigator.pop(context);
+              errorDialog("Place Added");
+            },
+          );
+        }
+      });
+    } on Exception catch (e) {
+      Navigator.pop(context);
+      errorDialog(e.toString());
+    }
   }
 
   @override
@@ -184,12 +293,17 @@ class _AddPlacePageState extends State<AddPlacePage> {
               buildTextfield(
                 placeaddresscontroller,
                 Icons.place,
-                "Street name, Lamjung",
+                "Street name",
               ),
-              buildTextfield(
-                placedescriptioncontroller,
-                Icons.description,
-                "Describe the place",
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: size.height * 0.5,
+                ),
+                child: buildTextfield(
+                  placedescriptioncontroller,
+                  Icons.description,
+                  "Describe the place (250 max)",
+                ),
               ),
               buildTextfield(
                 placeopentimecontroller,
@@ -248,7 +362,19 @@ class _AddPlacePageState extends State<AddPlacePage> {
                       ],
                     ),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (checkfield()) {
+                          submitplace(
+                            generateUniqueId(21),
+                            placenamecontroller.text.trim(),
+                            placeaddresscontroller.text.trim(),
+                            placedescriptioncontroller.text.trim(),
+                            placeopentimecontroller.text.trim(),
+                          );
+                        } else {
+                          errorDialog("Please fill all fields");
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.secondaryColor,
                         shape: RoundedRectangleBorder(
