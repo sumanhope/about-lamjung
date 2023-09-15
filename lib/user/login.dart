@@ -1,4 +1,6 @@
 import 'package:aboutlamjung/landing.dart';
+import 'package:aboutlamjung/theme/color.dart';
+import 'package:aboutlamjung/theme/texts.dart';
 import 'package:aboutlamjung/user/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -88,41 +90,40 @@ class _LoginPageState extends State<LoginPage> {
       child: SizedBox(
         child: TextField(
           controller: emailController,
-          cursorColor: const Color(0xFF1B1B1B),
+          cursorColor: AppColor.primaryColor,
           decoration: InputDecoration(
             filled: true,
-            fillColor: const Color(0xFFD2E1DC),
-            border: const OutlineInputBorder(
-              borderSide: BorderSide.none,
+            fillColor: AppColor.fillColor,
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(width: 2),
               borderRadius: BorderRadius.all(
                 Radius.circular(12),
               ),
-              gapPadding: 4,
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(width: 2),
+              borderRadius: BorderRadius.all(
+                Radius.circular(12),
+              ),
             ),
             prefixIcon: const Icon(
               Icons.email,
               size: 25,
-              color: Color(0xFF1B1B1B),
+              color: AppColor.primaryColor,
             ),
             suffixIcon: emailController.text.isEmpty
                 ? Container(width: 0)
                 : IconButton(
                     icon: const Icon(
                       Icons.close,
-                      color: Color(0xFF1B1B1B),
+                      color: AppColor.primaryColor,
                     ),
                     onPressed: () => emailController.clear(),
                   ),
           ),
           keyboardType: TextInputType.emailAddress,
           textInputAction: TextInputAction.next,
-          style: const TextStyle(
-            color: Color(0xFF1B1B1B),
-            fontFamily: 'Rubik',
-            letterSpacing: 1,
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-          ),
+          style: AppTexts.basicText,
         ),
       ),
     );
@@ -136,24 +137,29 @@ class _LoginPageState extends State<LoginPage> {
           onChanged: (value) => setState(() {
             password = value;
           }),
-          cursorColor: const Color(0xFF1B1B1B),
+          cursorColor: AppColor.primaryColor,
           decoration: InputDecoration(
             filled: true,
 
-            fillColor: const Color(0xFFD2E1DC),
+            fillColor: AppColor.fillColor,
             // enabledBorder: InputBorder.none,
             // focusedBorder: InputBorder.none,
-            border: const OutlineInputBorder(
-              borderSide: BorderSide.none,
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(width: 2),
               borderRadius: BorderRadius.all(
                 Radius.circular(12),
               ),
-              gapPadding: 4,
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(width: 2),
+              borderRadius: BorderRadius.all(
+                Radius.circular(12),
+              ),
             ),
             prefixIcon: const Icon(
               Icons.key,
               size: 25,
-              color: Color(0xFF1B1B1B),
+              color: AppColor.primaryColor,
             ),
             suffixIcon: IconButton(
               icon: isPasswordVisible
@@ -161,19 +167,13 @@ class _LoginPageState extends State<LoginPage> {
                   : const Icon(Icons.visibility),
               onPressed: () =>
                   setState(() => isPasswordVisible = !isPasswordVisible),
-              color: const Color(0xFF1B1B1B),
+              color: AppColor.primaryColor,
             ),
           ),
           obscureText: isPasswordVisible,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.done,
-          style: const TextStyle(
-            color: Color(0xFF1B1B1B),
-            fontFamily: 'Rubik',
-            letterSpacing: 1,
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-          ),
+          style: AppTexts.basicText,
         ),
       ),
     );
@@ -207,7 +207,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: IconButton(
                     icon: const Icon(
                       Icons.arrow_back_ios_new_rounded,
-                      color: Color(0xFF016FB9),
+                      color: AppColor.secondaryColor,
                     ),
                     onPressed: () {
                       Navigator.pop(context);
@@ -220,14 +220,8 @@ class _LoginPageState extends State<LoginPage> {
                   horizontal: 20.0,
                 ),
                 child: Text(
-                  "Hello Again!",
-                  style: TextStyle(
-                    color: Color(0xFF1B1B1B),
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                    fontSize: 40,
-                  ),
+                  "Login",
+                  style: AppTexts.bigText,
                 ),
               ),
               const Padding(
@@ -235,22 +229,7 @@ class _LoginPageState extends State<LoginPage> {
                   horizontal: 20.0,
                 ),
                 child: Text(
-                  "Welcome",
-                  style: TextStyle(
-                    color: Color(0xFF1B1B1B),
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                    fontSize: 30,
-                  ),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                ),
-                child: Text(
-                  "back",
+                  "Welcome Back",
                   style: TextStyle(
                     color: Color(0xFF1B1B1B),
                     fontFamily: 'Rubik',
@@ -304,7 +283,12 @@ class _LoginPageState extends State<LoginPage> {
                   height: 60,
                   child: ElevatedButton(
                     onPressed: () {
-                      signIn(emailController.text.trim());
+                      if (emailController.text.trim().isNotEmpty &&
+                          password.isNotEmpty) {
+                        signIn(emailController.text.trim());
+                      } else {
+                        errorDialog("Please fill all fields");
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF1B1B1B),
