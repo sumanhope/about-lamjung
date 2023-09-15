@@ -145,10 +145,12 @@ class _AddPlacePageState extends State<AddPlacePage> {
             'placeaddress': placeaddress,
             'placedescription': placedescription,
             'opentime': opentime,
-            'placerating': "0",
+            'placerating': [],
+            'averagerating': "0",
             'totalreviews': "0",
             'imagelink': "",
             'contactno': "",
+            'addedby': "",
           }).then(
             (value) {
               Navigator.pop(context);

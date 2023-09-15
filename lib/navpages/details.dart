@@ -1,21 +1,19 @@
 import 'package:aboutlamjung/theme/color.dart';
 import 'package:aboutlamjung/theme/texts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({
     super.key,
     required this.placeName,
-    required this.placeAddress,
-    required this.placeRating,
-    required this.placeDescription,
     required this.imagelink,
+    required this.placeid,
   });
   final String placeName;
-  final String placeAddress;
-  final String placeRating;
-  final String placeDescription;
+  final String placeid;
   final String imagelink;
 
   @override
@@ -24,6 +22,33 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   bool isBookmarked = false;
+  String placeaddress = "";
+  String opentime = "";
+  String rating = "0";
+  String placedescription = "";
+  String totalreviews = "0";
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  void getData() async {
+    final DocumentSnapshot placeDoc = await FirebaseFirestore.instance
+        .collection('place')
+        .doc(widget.placeid)
+        .get();
+
+    setState(() {
+      placeaddress = placeDoc.get('placeaddress');
+      opentime = placeDoc.get('opentime');
+      rating = placeDoc.get('averagerating').toString();
+      placedescription = placeDoc.get('placedescription');
+      totalreviews = placeDoc.get('totalreviews').toString();
+    });
+  }
+
   void addBookmark() {
     if (isBookmarked) {
       isBookmarked = false;
@@ -31,6 +56,170 @@ class _DetailsPageState extends State<DetailsPage> {
       isBookmarked = true;
     }
     setState(() {});
+  }
+
+  void addRatingToPlace(String placeId, double newRating) async {
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final DocumentReference placeRef =
+        firestore.collection('place').doc(placeId);
+
+    // Retrieve the existing data for the place
+    DocumentSnapshot placeSnapshot = await placeRef.get();
+    Map<String, dynamic> placeData =
+        placeSnapshot.data() as Map<String, dynamic>;
+
+    // Extract the existing ratings and total reviews
+    List<dynamic> existingRatings = placeData['placerating'];
+    int totalReviews = placeData['totalreviews'];
+
+    // Add the new rating to the 'placerating' list
+    existingRatings.add(newRating);
+
+    // Calculate the new average rating
+    double newAverageRating =
+        (existingRatings.reduce((a, b) => a + b) / (totalReviews + 1))
+            .toDouble();
+
+    // Update the 'placerating' and 'totalreviews' fields
+    await placeRef.update({
+      'placerating': existingRatings,
+      'totalreviews': totalReviews + 1,
+      'averagerating': newAverageRating, // Optionally store the average rating
+    });
+
+    print('Rating added successfully');
+  }
+
+  Future errorDialog(double rating, Size size) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+          backgroundColor: AppColor.selectedItemColor,
+          elevation: 5,
+          title: Text(
+            "Submit your rating of $rating?",
+            style: AppTexts.basicText,
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: size.height * 0.07,
+                  width: size.width * 0.3,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: AppColor.shadowColor,
+                        blurRadius: 4,
+                        offset: Offset(1, 8), // Shadow position
+                      ),
+                    ],
+                  ),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColor.primaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      "Cancel",
+                      style: AppTexts.whitebasicText,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: size.height * 0.07,
+                  width: size.width * 0.3,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: AppColor.shadowColor,
+                        blurRadius: 4,
+                        offset: Offset(1, 8), // Shadow position
+                      ),
+                    ],
+                  ),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      addRatingToPlace(widget.placeid, rating);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColor.secondaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      "Submit",
+                      style: AppTexts.whitebasicText,
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  Future reviewdialog(Size size) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            backgroundColor: AppColor.selectedItemColor,
+            elevation: 5,
+            content: Container(
+              height: size.height * 0.15,
+              width: size.width * 0.8,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Rate this place.",
+                    style: AppTexts.appbarText,
+                  ),
+                  SizedBox(
+                    height: size.height * 0.02,
+                  ),
+                  RatingBar.builder(
+                    minRating: 1,
+                    maxRating: 5,
+                    allowHalfRating: true,
+                    unratedColor: AppColor.shadowColor,
+                    itemBuilder: (context, _) {
+                      return const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      );
+                    },
+                    onRatingUpdate: (rating) {
+                      Navigator.pop(context);
+                      errorDialog(rating, size);
+                    },
+                  ),
+                ],
+              ),
+            ));
+      },
+    );
   }
 
   @override
@@ -160,7 +349,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   size: 25,
                                 ),
                                 Text(
-                                  widget.placeAddress,
+                                  placeaddress,
                                   style: AppTexts.basicText,
                                 ),
                               ],
@@ -205,8 +394,8 @@ class _DetailsPageState extends State<DetailsPage> {
                                   ),
                                 ],
                               ),
-                              const Text(
-                                "6am - 8pm",
+                              Text(
+                                opentime,
                                 style: AppTexts.basicText,
                               )
                             ],
@@ -250,11 +439,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    widget.placeRating,
+                                    rating,
                                     style: AppTexts.basicText,
                                   ),
-                                  const Text(
-                                    "(125 reviews)",
+                                  Text(
+                                    "($totalreviews reviews)",
                                     style: AppTexts.reviewText,
                                   ),
                                 ],
@@ -287,10 +476,12 @@ class _DetailsPageState extends State<DetailsPage> {
                       child: Padding(
                         padding: const EdgeInsets.only(
                             left: 12.0, right: 12, top: 8, bottom: 8),
-                        child: Text(widget.placeDescription,
-                            textAlign: TextAlign.justify,
-                            softWrap: true,
-                            style: AppTexts.descriptionText),
+                        child: Text(
+                          placedescription,
+                          textAlign: TextAlign.justify,
+                          softWrap: true,
+                          style: AppTexts.descriptionText,
+                        ),
                       ),
                     ),
                   ],
@@ -316,7 +507,9 @@ class _DetailsPageState extends State<DetailsPage> {
                       ],
                     ),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        reviewdialog(size);
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.primaryColor,
                         shape: RoundedRectangleBorder(
@@ -324,7 +517,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         ),
                       ),
                       child: const Text(
-                        "Contact them",
+                        "Rate them",
                         style: AppTexts.whitebasicText,
                       ),
                     ),
@@ -345,7 +538,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         MapsLauncher.launchQuery(
-                            "${widget.placeName}, ${widget.placeAddress}");
+                            "${widget.placeName}, $placeaddress");
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.secondaryColor,

@@ -132,7 +132,7 @@ class _PlacesPageState extends State<PlacesPage> {
                           imagelink: "assets/images/sky.jpg",
                           placename: data['placename'].toString(),
                           placeaddress: data['placeaddress'].toString(),
-                          rating: data['placerating'].toString(),
+                          rating: data['averagerating'].toString(),
                           totalreviews: data['totalreviews'].toString(),
                           press: () {
                             Navigator.push(
@@ -141,11 +141,7 @@ class _PlacesPageState extends State<PlacesPage> {
                                 builder: (context) {
                                   return DetailsPage(
                                     placeName: data['placename'].toString(),
-                                    placeAddress:
-                                        data['placeaddress'].toString(),
-                                    placeRating: data['placerating'].toString(),
-                                    placeDescription:
-                                        data['placedescription'].toString(),
+                                    placeid: data['placeid'].toString(),
                                     imagelink: "assets/images/sky.jpg",
                                   );
                                 },
@@ -163,7 +159,7 @@ class _PlacesPageState extends State<PlacesPage> {
                           imagelink: "assets/images/sky.jpg",
                           placename: data['placename'].toString(),
                           placeaddress: data['placeaddress'].toString(),
-                          rating: data['placerating'],
+                          rating: data['averagerating'].toString(),
                           totalreviews: data['totalreviews'].toString(),
                           press: () {
                             Navigator.push(
@@ -172,11 +168,7 @@ class _PlacesPageState extends State<PlacesPage> {
                                 builder: (context) {
                                   return DetailsPage(
                                     placeName: data['placename'].toString(),
-                                    placeAddress:
-                                        data['placeaddress'].toString(),
-                                    placeRating: data['placerating'].toString(),
-                                    placeDescription:
-                                        data['placedescription'].toString(),
+                                    placeid: data['placeid'].toString(),
                                     imagelink: "assets/images/sky.jpg",
                                   );
                                 },

@@ -131,13 +131,7 @@ class _HomePageState extends State<HomePage> {
                           builder: (context) {
                             return const DetailsPage(
                               placeName: "Suman Kirana and Hotel",
-                              placeAddress: "Siundibar, Lamjung",
-                              placeRating: "4.5",
-                              placeDescription:
-                                  "This establishment conveniently combines a grocery store and a hotel,"
-                                  " offering a delightful emphasis on breakfast cuisine. Renowned for its "
-                                  "affordability and delectable flavors, this place is a go-to destination "
-                                  "for those seeking delicious meals. ",
+                              placeid: "",
                               imagelink: "assets/images/skyhill.jpg",
                             );
                           },
@@ -158,9 +152,7 @@ class _HomePageState extends State<HomePage> {
                           builder: (context) {
                             return const DetailsPage(
                               placeName: "Something mountain",
-                              placeAddress: "Bhotewodar, Lamjung",
-                              placeRating: "4.0",
-                              placeDescription: "A mountain pic",
+                              placeid: "",
                               imagelink: "assets/images/hillstwo.jpg",
                             );
                           },
