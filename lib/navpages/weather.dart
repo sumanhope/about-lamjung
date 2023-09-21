@@ -1,5 +1,5 @@
+import 'package:aboutlamjung/functions/weatherapikey.dart';
 import 'package:aboutlamjung/model/weathermodel.dart';
-import 'package:aboutlamjung/services/weatherapi.dart';
 import 'package:aboutlamjung/theme/color.dart';
 import 'package:aboutlamjung/theme/texts.dart';
 import 'package:flutter/cupertino.dart';

@@ -1,8 +1,13 @@
+import 'dart:io';
+
+import 'package:aboutlamjung/functions/addplacefunction.dart';
 import 'package:aboutlamjung/theme/color.dart';
 import 'package:aboutlamjung/theme/texts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'dart:math';
 
@@ -18,6 +23,8 @@ class _AddPlacePageState extends State<AddPlacePage> {
   final placeaddresscontroller = TextEditingController();
   final placedescriptioncontroller = TextEditingController();
   final placeopentimecontroller = TextEditingController();
+
+  File? pickedImage;
 
   String generateUniqueId(int length) {
     const String characters =
@@ -51,6 +58,14 @@ class _AddPlacePageState extends State<AddPlacePage> {
         );
       },
     );
+  }
+
+  Future imagePicker() async {
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      pickedImage = File(returnedImage!.path);
+    });
   }
 
   bool checkfield() {
@@ -252,6 +267,14 @@ class _AddPlacePageState extends State<AddPlacePage> {
                       ),
                     ],
                   ),
+                  child: pickedImage != null
+                      ? Image.file(pickedImage!)
+                      : const Center(
+                          child: Text(
+                            "Please select an image.",
+                            style: AppTexts.basicText,
+                          ),
+                        ),
                 ),
               ),
               SizedBox(
@@ -271,7 +294,7 @@ class _AddPlacePageState extends State<AddPlacePage> {
                   ],
                 ),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: imagePicker,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF1B1B1B),
                     shape: RoundedRectangleBorder(
@@ -279,7 +302,7 @@ class _AddPlacePageState extends State<AddPlacePage> {
                     ),
                   ),
                   child: const Text(
-                    "Upload Photo",
+                    "Select Photo",
                     style: AppTexts.whitebasicText,
                   ),
                 ),

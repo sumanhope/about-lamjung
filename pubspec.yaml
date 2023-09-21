@@ -50,6 +50,7 @@ dependencies:
   cloud_firestore: ^4.8.0
   maps_launcher: ^2.2.0
   flutter_rating_bar: ^4.0.1
+  file_picker: ^5.5.0
 
 dev_dependencies:
   flutter_test:

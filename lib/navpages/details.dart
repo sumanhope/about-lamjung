@@ -3,10 +3,7 @@
 import 'package:aboutlamjung/functions/detailsfunction.dart';
 import 'package:aboutlamjung/theme/color.dart';
 import 'package:aboutlamjung/theme/texts.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -40,7 +37,7 @@ class _DetailsPageState extends State<DetailsPage> {
     bool isRated = await isPlaceRated(placeId, user!.uid);
 
     if (isRated) {
-      errorDialog("You have already rated this place. $test", context);
+      errorDialog("You have already rated this place.", context);
     } else {
       reviewdialog(placeId, size, context);
     }

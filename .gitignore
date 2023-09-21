@@ -44,7 +44,7 @@ app.*.map.json
 /android/app/release
 
 #Weather api
-/lib/services/weather.dart
+/lib/services
 
 # All functions
 /lib/functions
