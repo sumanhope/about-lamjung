@@ -4,6 +4,7 @@ import 'package:aboutlamjung/theme/texts.dart';
 import 'package:aboutlamjung/user/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class LoginPage extends StatefulWidget {
@@ -93,21 +94,22 @@ class _LoginPageState extends State<LoginPage> {
           cursorColor: AppColor.primaryColor,
           decoration: InputDecoration(
             filled: true,
+            hintText: "Username",
             fillColor: AppColor.fillColor,
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(width: 2),
               borderRadius: BorderRadius.all(
-                Radius.circular(12),
+                Radius.circular(10),
               ),
             ),
             focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(width: 2),
               borderRadius: BorderRadius.all(
-                Radius.circular(12),
+                Radius.circular(10),
               ),
             ),
             prefixIcon: const Icon(
-              Icons.email,
+              Icons.person,
               size: 25,
               color: AppColor.primaryColor,
             ),
@@ -131,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget buildPassword() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
       child: SizedBox(
         child: TextField(
           onChanged: (value) => setState(() {
@@ -140,6 +142,7 @@ class _LoginPageState extends State<LoginPage> {
           cursorColor: AppColor.primaryColor,
           decoration: InputDecoration(
             filled: true,
+            hintText: "Password",
 
             fillColor: AppColor.fillColor,
             // enabledBorder: InputBorder.none,
@@ -147,13 +150,13 @@ class _LoginPageState extends State<LoginPage> {
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(width: 2),
               borderRadius: BorderRadius.all(
-                Radius.circular(12),
+                Radius.circular(10),
               ),
             ),
             focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(width: 2),
               borderRadius: BorderRadius.all(
-                Radius.circular(12),
+                Radius.circular(10),
               ),
             ),
             prefixIcon: const Icon(
@@ -181,6 +184,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return KeyboardDismisser(
       gestures: const [GestureType.onTap, GestureType.onPanUpdateDownDirection],
       child: Scaffold(
@@ -192,89 +196,59 @@ class _LoginPageState extends State<LoginPage> {
         ),
         body: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
-                child: Container(
-                  height: 60,
-                  width: 60,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFD2E1DC),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      color: AppColor.secondaryColor,
+              Stack(
+                children: [
+                  Opacity(
+                    opacity: 0.5,
+                    child: ClipPath(
+                      clipper: WaveClipperTwo(),
+                      child: Container(
+                        color: AppColor.primaryColor,
+                        height: 160,
+                      ),
                     ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
                   ),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                ),
-                child: Text(
-                  "Login",
-                  style: AppTexts.bigText,
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                ),
-                child: Text(
-                  "Welcome Back",
-                  style: TextStyle(
-                    color: Color(0xFF1B1B1B),
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                    fontSize: 30,
+                  ClipPath(
+                    clipper: WaveClipperTwo(),
+                    child: Container(
+                      color: AppColor.primaryColor,
+                      height: 140,
+                    ),
                   ),
-                ),
+                ],
               ),
-              const Padding(
-                padding: EdgeInsets.only(
-                  left: 20.0,
-                  top: 30,
-                ),
-                child: Text(
-                  "Email",
-                  style: TextStyle(
-                    color: Color(0xFF1B1B1B),
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                    fontSize: 20,
-                  ),
-                ),
+              SizedBox(
+                height: size.height * 0.05,
+              ),
+              const Text(
+                "Welcome Back",
+                style: AppTexts.bigText,
+              ),
+              SizedBox(
+                height: size.height * 0.05,
               ),
               buildEmail(),
-              const Padding(
-                padding: EdgeInsets.only(
-                  left: 20.0,
-                  top: 10,
-                ),
-                child: Text(
-                  "Password",
-                  style: TextStyle(
-                    color: Color(0xFF1B1B1B),
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                    fontSize: 20,
-                  ),
-                ),
+              SizedBox(
+                height: size.height * 0.015,
               ),
               buildPassword(),
-              const SizedBox(
-                height: 10,
+              // SizedBox(
+              //   height: size.height * 0.01,
+              // ),
+              Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    child: const Text(
+                      'Forgot Password?',
+                      style: AppTexts.bluedescriptionText,
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
               ),
               Align(
                 alignment: Alignment.bottomCenter,

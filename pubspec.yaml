@@ -51,6 +51,8 @@ dependencies:
   maps_launcher: ^2.2.0
   flutter_rating_bar: ^4.0.1
   file_picker: ^5.5.0
+  flutter_custom_clippers: ^2.1.0
+  firebase_storage: ^11.2.7
 
 dev_dependencies:
   flutter_test:

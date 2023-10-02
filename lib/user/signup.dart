@@ -1,9 +1,11 @@
 import 'package:aboutlamjung/landing.dart';
 import 'package:aboutlamjung/theme/color.dart';
+import 'package:aboutlamjung/theme/texts.dart';
 import 'package:aboutlamjung/user/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -93,51 +95,48 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   }
 
-  Widget buildEmail(
-      TextEditingController which, IconData icon, TextInputType keyboard) {
+  Widget buildEmail(TextEditingController controller, String hinttext,
+      IconData icon, TextInputType type) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: SizedBox(
         child: TextField(
-          controller: which,
+          controller: controller,
           cursorColor: AppColor.primaryColor,
           decoration: InputDecoration(
             filled: true,
-
-            fillColor: const Color(0xFFD2E1DC),
-            // enabledBorder: InputBorder.none,
-            // focusedBorder: InputBorder.none,
-            border: const OutlineInputBorder(
-              borderSide: BorderSide.none,
+            hintText: hinttext,
+            fillColor: AppColor.fillColor,
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(width: 2),
               borderRadius: BorderRadius.all(
-                Radius.circular(12),
+                Radius.circular(10),
               ),
-              gapPadding: 4,
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(width: 2),
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
             ),
             prefixIcon: Icon(
               icon,
               size: 25,
-              color: const Color(0xFF1B1B1B),
+              color: AppColor.primaryColor,
             ),
-            suffixIcon: which.text.isEmpty
+            suffixIcon: controller.text.isEmpty
                 ? Container(width: 0)
                 : IconButton(
                     icon: const Icon(
                       Icons.close,
-                      color: Color(0xFF1B1B1B),
+                      color: AppColor.primaryColor,
                     ),
-                    onPressed: () => which.clear(),
+                    onPressed: () => controller.clear(),
                   ),
           ),
-          keyboardType: keyboard,
+          keyboardType: type,
           textInputAction: TextInputAction.next,
-          style: const TextStyle(
-            color: Color(0xFF1B1B1B),
-            fontFamily: 'Rubik',
-            letterSpacing: 1,
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-          ),
+          style: AppTexts.basicText,
         ),
       ),
     );
@@ -145,30 +144,36 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Widget buildPassword() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
       child: SizedBox(
         child: TextField(
           onChanged: (value) => setState(() {
             password = value;
           }),
-          cursorColor: const Color(0xFF1B1B1B),
+          cursorColor: AppColor.primaryColor,
           decoration: InputDecoration(
             filled: true,
+            hintText: "Password",
 
-            fillColor: const Color(0xFFD2E1DC),
+            fillColor: AppColor.fillColor,
             // enabledBorder: InputBorder.none,
             // focusedBorder: InputBorder.none,
-            border: const OutlineInputBorder(
-              borderSide: BorderSide.none,
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(width: 2),
               borderRadius: BorderRadius.all(
-                Radius.circular(12),
+                Radius.circular(10),
               ),
-              gapPadding: 4,
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(width: 2),
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
             ),
             prefixIcon: const Icon(
               Icons.key,
               size: 25,
-              color: Color(0xFF1B1B1B),
+              color: AppColor.primaryColor,
             ),
             suffixIcon: IconButton(
               icon: isPasswordVisible
@@ -176,19 +181,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   : const Icon(Icons.visibility),
               onPressed: () =>
                   setState(() => isPasswordVisible = !isPasswordVisible),
-              color: const Color(0xFF1B1B1B),
+              color: AppColor.primaryColor,
             ),
           ),
           obscureText: isPasswordVisible,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.done,
-          style: const TextStyle(
-            color: Color(0xFF1B1B1B),
-            fontFamily: 'Rubik',
-            letterSpacing: 1,
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-          ),
+          style: AppTexts.basicText,
         ),
       ),
     );
@@ -196,7 +195,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    //final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return KeyboardDismisser(
       gestures: const [GestureType.onTap, GestureType.onPanUpdateDownDirection],
       child: Scaffold(
@@ -208,184 +207,136 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         body: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
-                child: Container(
-                  height: 60,
-                  width: 60,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFD2E1DC),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      color: Color(0xFF016FB9),
+              Stack(
+                children: [
+                  Opacity(
+                    opacity: 0.5,
+                    child: ClipPath(
+                      clipper: OvalBottomBorderClipper(),
+                      child: Container(
+                        color: AppColor.primaryColor,
+                        height: 110,
+                      ),
                     ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
                   ),
-                ),
+                  ClipPath(
+                    clipper: OvalBottomBorderClipper(),
+                    child: Container(
+                      color: AppColor.primaryColor,
+                      height: 100,
+                    ),
+                  ),
+                ],
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                ),
-                child: Text(
-                  "Sign Up",
-                  style: TextStyle(
-                    color: Color(0xFF1B1B1B),
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                    fontSize: 50,
-                  ),
-                ),
+              SizedBox(
+                height: size.height * 0.05,
               ),
-              const Padding(
-                padding: EdgeInsets.only(
-                  left: 20.0,
-                  top: 50,
-                ),
-                child: Text(
-                  "Email",
-                  style: TextStyle(
-                    color: Color(0xFF1B1B1B),
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                    fontSize: 20,
-                  ),
-                ),
+              const Text(
+                "Register Account",
+                style: AppTexts.bigText,
+              ),
+              SizedBox(
+                height: size.height * 0.05,
               ),
               buildEmail(
                 emailController,
+                "Email",
                 Icons.email,
                 TextInputType.emailAddress,
               ),
-              const Padding(
-                padding: EdgeInsets.only(
-                  left: 20.0,
-                  top: 10,
-                ),
-                child: Text(
-                  "Username",
-                  style: TextStyle(
-                    color: Color(0xFF1B1B1B),
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                    fontSize: 20,
-                  ),
-                ),
+              SizedBox(
+                height: size.height * 0.015,
               ),
               buildEmail(
                 usernameController,
+                "Username",
                 Icons.person,
                 TextInputType.text,
               ),
-              const Padding(
-                padding: EdgeInsets.only(
-                  left: 20.0,
-                  top: 10,
-                ),
-                child: Text(
-                  "Password",
-                  style: TextStyle(
-                    color: Color(0xFF1B1B1B),
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                    fontSize: 20,
-                  ),
-                ),
+              SizedBox(
+                height: size.height * 0.015,
               ),
               buildPassword(),
               const SizedBox(
                 height: 10,
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: SizedBox(
-                  width: 270,
-                  height: 60,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (usernameController.text.trim().isNotEmpty &&
-                          emailController.text.trim().isNotEmpty &&
-                          password.isNotEmpty) {
-                        signUp(
-                          emailController.text,
-                          password,
-                          usernameController.text,
-                        );
-                      } else {
-                        errorDialog("Please fill all details");
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1B1B1B),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+              SizedBox(
+                height: size.height * 0.015,
+              ),
+              SizedBox(
+                width: 270,
+                height: 60,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (usernameController.text.trim().isNotEmpty &&
+                        emailController.text.trim().isNotEmpty &&
+                        password.isNotEmpty) {
+                      signUp(
+                        emailController.text,
+                        password,
+                        usernameController.text,
+                      );
+                    } else {
+                      errorDialog("Please fill all details");
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF1B1B1B),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const Text(
-                      "Sign Up",
-                      style: TextStyle(
-                        color: Color(0xFFF1F3F4),
-                        fontFamily: 'Rubik',
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1,
-                      ),
+                  ),
+                  child: const Text(
+                    "Sign Up",
+                    style: TextStyle(
+                      color: Color(0xFFF1F3F4),
+                      fontFamily: 'Rubik',
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1,
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 5.0, left: 20),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "Already have a account?",
-                      style: TextStyle(
-                        color: Color(0xFF1B1B1B),
-                        fontFamily: 'Rubik',
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1,
-                      ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Already have a account?",
+                    style: TextStyle(
+                      color: Color(0xFF1B1B1B),
+                      fontFamily: 'Rubik',
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1,
                     ),
-                    SizedBox(
-                      height: 35,
-                      child: TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return const LoginPage();
-                                },
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            "Login",
-                            style: TextStyle(
-                              color: Color(0xFF016FB9),
-                              fontFamily: 'Rubik',
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1,
+                  ),
+                  SizedBox(
+                    height: 35,
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const LoginPage();
+                              },
                             ),
-                          )),
-                    )
-                  ],
-                ),
+                          );
+                        },
+                        child: const Text(
+                          "Login",
+                          style: TextStyle(
+                            color: Color(0xFF016FB9),
+                            fontFamily: 'Rubik',
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1,
+                          ),
+                        )),
+                  )
+                ],
               ),
             ],
           ),

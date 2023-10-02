@@ -1,10 +1,7 @@
 import 'dart:io';
-
-import 'package:aboutlamjung/functions/addplacefunction.dart';
 import 'package:aboutlamjung/theme/color.dart';
 import 'package:aboutlamjung/theme/texts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -268,7 +265,10 @@ class _AddPlacePageState extends State<AddPlacePage> {
                     ],
                   ),
                   child: pickedImage != null
-                      ? Image.file(pickedImage!)
+                      ? Image.file(
+                          pickedImage!,
+                          fit: BoxFit.cover,
+                        )
                       : const Center(
                           child: Text(
                             "Please select an image.",
